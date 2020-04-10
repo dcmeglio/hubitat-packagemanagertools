@@ -1,5 +1,6 @@
 ﻿using HubitatPackageManagerTools.Options;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Linq;
 
 namespace HubitatPackageManagerTools.Executors
@@ -12,7 +13,7 @@ namespace HubitatPackageManagerTools.Executors
 
             JArray drivers = manifestContents["drivers"] as JArray;
             if (drivers == null)
-                return -1;
+                throw new ApplicationException("Package is missing a drivers element.");
 
             JToken driver = null;
             if (!string.IsNullOrEmpty(options.Name))

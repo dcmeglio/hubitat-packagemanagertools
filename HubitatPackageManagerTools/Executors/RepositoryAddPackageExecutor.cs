@@ -1,5 +1,6 @@
 ﻿using HubitatPackageManagerTools.Options;
 using Newtonsoft.Json.Linq;
+using System;
 
 namespace HubitatPackageManagerTools.Executors
 {
@@ -8,19 +9,18 @@ namespace HubitatPackageManagerTools.Executors
         public int Execute(RepositoryAddPackageOptions options)
         {
             JObject repositoryContents = OpenExistingRepository(options);
-
             JArray packages = EnsureArrayExists(repositoryContents, "packages");
 
+            if (packages == null)
+                throw new ApplicationException("Repository is missing a packages element.");
+
             string name = options.Name;
-
+            var manifestContents = DownloadJsonFile(options.Manifest);
+            if (manifestContents == null)
+                throw new ApplicationException($"Manifest file {options.Manifest} either does not exist or is not valid.");
             if (name == null)
-            {
-                var manifestContents = DownloadJsonFile(options.Manifest);
+                name = manifestContents["packageName"].ToString();
 
-                if (manifestContents != null)
-                    name = manifestContents["packageName"].ToString();
-
-            }
             packages.Add(JObject.FromObject(new
             {
                 name = name,
@@ -28,7 +28,6 @@ namespace HubitatPackageManagerTools.Executors
                 location = options.Manifest,
                 description = options.Description
             }));
-
 
             SaveRepository(options, repositoryContents);
             return 0;

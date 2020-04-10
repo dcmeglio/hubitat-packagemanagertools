@@ -1,5 +1,6 @@
 ﻿using HubitatPackageManagerTools.Options;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Linq;
 
 namespace HubitatPackageManagerTools.Executors
@@ -12,7 +13,7 @@ namespace HubitatPackageManagerTools.Executors
 
             JArray apps = manifestContents["apps"] as JArray;
             if (apps == null)
-                return -1;
+                throw new ApplicationException("Package is missing a apps element.");
 
             JToken app = null;
             if (!string.IsNullOrEmpty(options.Name))

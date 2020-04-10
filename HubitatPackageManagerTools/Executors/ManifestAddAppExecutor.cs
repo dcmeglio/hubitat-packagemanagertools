@@ -11,14 +11,17 @@ namespace HubitatPackageManagerTools.Executors
             JObject manifestContents = OpenExistingManifest(options);
 
             JArray apps = EnsureArrayExists(manifestContents, "apps");
-
-            string name = null;
-            string @namespace = null;
-
             var groovyFile = DownloadGroovyFile(options.Location);
+
+            string name;
+            string @namespace;
             if (groovyFile != null)
                 (name, @namespace) = GetNameAndNamespace(groovyFile);
+            else
+                throw new ApplicationException($"The app Groovy file {options.Location} either was not found or is not valid.");
 
+            if (name == null || @namespace == null)
+                throw new ApplicationException($"The app Groovy file {options.Location} could not be parsed to determine the name and namespace. Please report this as a bug.");
             var app = JObject.FromObject(new
             {
                 id = Guid.NewGuid().ToString(),

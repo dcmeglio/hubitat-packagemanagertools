@@ -10,13 +10,16 @@ namespace HubitatPackageManagerTools.Executors
         {
             JObject manifestContents = OpenExistingManifest(options);
             JArray drivers = EnsureArrayExists(manifestContents, "drivers");
-
-            string name = null;
+            string groovyFile = DownloadGroovyFile(options.Location);
+            string name;
             string @namespace = null;
-            
-            var groovyFile = DownloadGroovyFile(options.Location);
             if (groovyFile != null)
                 (name, @namespace) = GetNameAndNamespace(groovyFile);
+            else
+                throw new ApplicationException($"The driver Groovy file {options.Location} either was not found or is not valid.");
+
+            if (name == null || @namespace == null)
+                throw new ApplicationException($"The driver Groovy file {options.Location} could not be parsed to determine the name and namespace. Please report this as a bug.");
 
             var driver = JObject.FromObject(new
             {

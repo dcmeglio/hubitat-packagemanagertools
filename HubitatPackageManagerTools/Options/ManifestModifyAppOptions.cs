@@ -9,8 +9,6 @@ namespace HubitatPackageManagerTools.Options
         public string Name { get; set; }
         [Option(SetName = "matcher", HelpText = "The id of the app.")]
         public string Id { get; set; }
-        [Option(HelpText = "The namespace of the app.", Group = "modify")]
-        public string Namespace { get; set; }
         [Option(HelpText = "The URL of the app's Groovy file.", Group = "modify")]
         public string Location { get; set; }
         [Option(HelpText = "The version of the driver.", Group = "modify")]
