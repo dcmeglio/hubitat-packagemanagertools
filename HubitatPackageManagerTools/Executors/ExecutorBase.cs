@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using HubitatPackageManagerTools.Extensions;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Net;
@@ -23,6 +24,13 @@ namespace HubitatPackageManagerTools.Executors
             }
         }
 
+        protected void SetNullableProperty(JObject json, string property, string value)
+        {
+            if (value.IsSpecified())
+                json[property] = value;
+            else if (value.IsNullValue())
+                json.Remove(property);
+        }
         protected void SetNonNullPropertyIfSpecified(JToken json, string property, string value)
         {
             if (!string.IsNullOrEmpty(value))

@@ -1,5 +1,4 @@
-﻿using HubitatPackageManagerTools.Extensions;
-using HubitatPackageManagerTools.Options;
+﻿using HubitatPackageManagerTools.Options;
 
 namespace HubitatPackageManagerTools.Executors
 {
@@ -10,14 +9,8 @@ namespace HubitatPackageManagerTools.Executors
             var repositoryContents = OpenExistingRepository(options);
 
             SetNonNullPropertyIfSpecified(repositoryContents, "author", options.Author);
-            if (options.GithubUrl.IsSpecified())
-                repositoryContents["gitHubUrl"] = options.GithubUrl;
-            else if (options.GithubUrl.IsNullValue())
-                repositoryContents.Remove("gitHubUrl");
-            if (options.PaypalUrl.IsSpecified())
-                repositoryContents["payPalUrl"] = options.PaypalUrl;
-            else if (options.PaypalUrl.IsNullValue())
-                repositoryContents.Remove("payPalUrl");
+            SetNullableProperty(repositoryContents, "gitHubUrl", options.GithubUrl);
+            SetNullableProperty(repositoryContents, "payPalUrl", options.PaypalUrl);
 
             SaveRepository(options, repositoryContents);
             return 0;

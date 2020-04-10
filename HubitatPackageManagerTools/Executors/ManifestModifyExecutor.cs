@@ -1,5 +1,4 @@
-﻿using HubitatPackageManagerTools.Extensions;
-using HubitatPackageManagerTools.Options;
+﻿using HubitatPackageManagerTools.Options;
 using Newtonsoft.Json.Linq;
 using System;
 
@@ -16,26 +15,15 @@ namespace HubitatPackageManagerTools.Executors
             if (!string.IsNullOrEmpty(options.Author))
                 manifestContents["author"] = options.Author;
 
-            if (options.Version.IsSpecified())
-                manifestContents["version"] = options.Version;
-            else if (options.Version.IsNullValue())
-                manifestContents.Remove("version");
-            if (options.HEVersion.IsSpecified())
-                manifestContents["minimumHEVersion"] = options.HEVersion;
-            else if (options.HEVersion.IsNullValue())
-                manifestContents.Remove("minimumHEVersion");
-            if (options.License.IsSpecified())
-                manifestContents["licenseFile"] = options.License;
-            else if (options.License.IsNullValue())
-                manifestContents.Remove("licenseFile");
+            SetNullableProperty(manifestContents, "version", options.Version);
+            SetNullableProperty(manifestContents, "minimumHEVersion", options.HEVersion);
+            SetNullableProperty(manifestContents, "licenseFile", options.License);
+            SetNullableProperty(manifestContents, "releaseNotes", options.ReleaseNotes);
+
             if (!string.IsNullOrEmpty(options.DateReleased))
                 manifestContents["dateReleased"] = options.DateReleased;
             else
                 manifestContents["dateReleased"] = DateTime.Now.ToString("yyyy-MM-dd");
-            if (options.ReleaseNotes.IsSpecified())
-                manifestContents["releaseNotes"] = options.ReleaseNotes;
-            else if (options.ReleaseNotes.IsNullValue())
-                manifestContents.Remove("releaseNotes");
 
             SaveManifest(options, manifestContents);
             return 0;

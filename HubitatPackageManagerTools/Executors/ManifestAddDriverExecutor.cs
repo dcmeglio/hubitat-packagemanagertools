@@ -33,7 +33,6 @@ namespace HubitatPackageManagerTools.Executors
                 }
             }
 
-
             var driver = JObject.FromObject(new
             {
                 id = Guid.NewGuid().ToString(),
@@ -45,7 +44,6 @@ namespace HubitatPackageManagerTools.Executors
             SetNonNullPropertyIfSpecified(driver, "version", options.Version);
  
             drivers.Add(driver);
-
 
             SaveManifest(options, manifestContents);
             return 0;

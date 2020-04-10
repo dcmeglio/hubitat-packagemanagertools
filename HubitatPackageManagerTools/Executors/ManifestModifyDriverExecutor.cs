@@ -1,5 +1,4 @@
-﻿using HubitatPackageManagerTools.Extensions;
-using HubitatPackageManagerTools.Options;
+﻿using HubitatPackageManagerTools.Options;
 using Newtonsoft.Json.Linq;
 using System.Linq;
 
@@ -25,10 +24,7 @@ namespace HubitatPackageManagerTools.Executors
 
             if (driver != null)
             {
-                if (options.Version.IsSpecified())
-                    driver["version"] = options.Version;
-                else if (options.Version.IsNullValue())
-                    driver.Remove("version");
+                SetNullableProperty(driver, "version", options.Version);
 
                 if (options.Required == true)
                     driver["required"] = true;

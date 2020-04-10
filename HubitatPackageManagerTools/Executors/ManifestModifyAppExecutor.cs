@@ -1,5 +1,4 @@
-﻿using HubitatPackageManagerTools.Extensions;
-using HubitatPackageManagerTools.Options;
+﻿using HubitatPackageManagerTools.Options;
 using Newtonsoft.Json.Linq;
 using System.Linq;
 
@@ -25,10 +24,7 @@ namespace HubitatPackageManagerTools.Executors
 
             if (app != null)
             {
-                if (options.Version.IsSpecified())
-                    app["version"] = options.Version;
-                else if (options.Version.IsNullValue())
-                    app.Remove("version");
+                SetNullableProperty(app, "version", options.Version);
 
                 if (options.Required == true)
                     app["required"] = true;

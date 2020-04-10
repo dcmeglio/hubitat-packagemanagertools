@@ -46,7 +46,6 @@ namespace HubitatPackageManagerTools.Executors
             
             apps.Add(app);
 
-
             SaveManifest(options, manifestContents);
             return 0;
         }
