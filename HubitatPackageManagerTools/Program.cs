@@ -44,7 +44,9 @@ namespace HubitatPackageManagerTools
                     (ManifestCreateOptions opts) => ManifestCreateExecutor.Execute(opts),
                     (ManifestModifyOptions opts) => ManifestModifyExecutor.Execute(opts),
                     (ManifestAddAppOptions opts) => ManifestAddAppExecutor.Execute(opts),
-                    (ManifestAddDriverOptions opts) => ManifestAddDriverExecutor.Execute(opts)
+                    (ManifestAddDriverOptions opts) => ManifestAddDriverExecutor.Execute(opts),
+                    (ManifestRemoveAppOptions opts) => ManifestRemoveAppExecutor.Execute(opts),
+                    (ManifestRemoveDriverOptions opts) => ManifestRemoveDriverExecutor.Execute(opts)
                 , errs => {
                     var helpText = HelpText.AutoBuild(result, h =>
                     {
