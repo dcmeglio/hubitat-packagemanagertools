@@ -20,10 +20,10 @@ namespace HubitatPackageManagerTools.Options
         public string Location { get; set; }
         [Option(HelpText = "The version of the driver.", Group = "modify")]
         public string Version { get; set; }
-        [Option(HelpText = "Whether or not the app is required.", Group = "modify")]
-        public bool Required { get; set; }
-        [Option(HelpText = "Whether or not the app uses OAuth.", Group = "modify")]
-        public bool Oauth { get; set; }
+        [Option(HelpText = "Whether or not the app is required.", Group = "modify", Default = null)]
+        public bool? Required { get; set; }
+        [Option(HelpText = "Whether or not the app uses OAuth.", Group = "modify", Default = null)]
+        public bool? Oauth { get; set; }
 
     }
 }
