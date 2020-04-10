@@ -6,26 +6,24 @@ using System.Linq;
 
 namespace HubitatPackageManagerTools.Executors
 {
-    public static class RepositoryRemovePackageExecutor
+    internal class RepositoryRemovePackageExecutor : RepositoryExecutorBase
     {
-        internal static int Execute(RepositoryRemovePackageOptions options)
+        internal int Execute(RepositoryRemovePackageOptions options)
         {
-            JObject repositoryContents = null;
-            using (var file = File.OpenText(options.RepositoryFile))
-            {
-                repositoryContents = (JObject)JToken.ReadFrom(new JsonTextReader(file));
-                JArray packages = new JArray();
-                if (repositoryContents["packages"] == null)
-                    return 0;
-               
-                packages = repositoryContents["packages"] as JArray;
+            JObject repositoryContents = OpenExistingRepository(options);
 
-                var package = packages.FirstOrDefault(p => p["location"]?.ToString() == options.Manifest);
+            JArray packages = new JArray();
+            if (repositoryContents["packages"] == null)
+                return 0;
 
-                if (package != null)
-                    packages.Remove(package);
-            }
-            File.WriteAllText(options.RepositoryFile, repositoryContents.ToString());
+            packages = repositoryContents["packages"] as JArray;
+
+            var package = packages.FirstOrDefault(p => p["location"]?.ToString() == options.Manifest);
+
+            if (package != null)
+                packages.Remove(package);
+
+            SaveRepository(options, repositoryContents);
             return 0;
         }
     }

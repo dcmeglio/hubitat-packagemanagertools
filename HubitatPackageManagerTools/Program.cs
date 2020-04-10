@@ -36,19 +36,19 @@ namespace HubitatPackageManagerTools
             >(args);
             return result
                 .MapResult(
-                    (RepositoryCreateOptions opts) => RepositoryCreateExecutor.Execute(opts),
-                    (RepositoryModifyOptions opts) => RepositoryModifyExecutor.Execute(opts),
-                    (RepositoryAddPackageOptions opts) => RepositoryAddPackageExecutor.Execute(opts),
-                    (RepositoryRemovePackageOptions opts) => RepositoryRemovePackageExecutor.Execute(opts),
-                    (RepositoryModifyPackageOptions opts) => RepositoryModifyPackageExecutor.Execute(opts),
-                    (ManifestCreateOptions opts) => ManifestCreateExecutor.Execute(opts),
-                    (ManifestModifyOptions opts) => ManifestModifyExecutor.Execute(opts),
-                    (ManifestAddAppOptions opts) => ManifestAddAppExecutor.Execute(opts),
-                    (ManifestAddDriverOptions opts) => ManifestAddDriverExecutor.Execute(opts),
-                    (ManifestRemoveAppOptions opts) => ManifestRemoveAppExecutor.Execute(opts),
-                    (ManifestRemoveDriverOptions opts) => ManifestRemoveDriverExecutor.Execute(opts),
-                    (ManifestModifyAppOptions opts) => ManifestModifyAppExecutor.Execute(opts),
-                    (ManifestModifyDriverOptions opts) => ManifestModifyDriverExecutor.Execute(opts)
+                    (RepositoryCreateOptions opts) => new RepositoryCreateExecutor().Execute(opts),
+                    (RepositoryModifyOptions opts) => new RepositoryModifyExecutor().Execute(opts),
+                    (RepositoryAddPackageOptions opts) => new RepositoryAddPackageExecutor().Execute(opts),
+                    (RepositoryRemovePackageOptions opts) => new RepositoryRemovePackageExecutor().Execute(opts),
+                    (RepositoryModifyPackageOptions opts) => new RepositoryModifyPackageExecutor().Execute(opts),
+                    (ManifestCreateOptions opts) => new ManifestCreateExecutor().Execute(opts),
+                    (ManifestModifyOptions opts) => new ManifestModifyExecutor().Execute(opts),
+                    (ManifestAddAppOptions opts) => new ManifestAddAppExecutor().Execute(opts),
+                    (ManifestAddDriverOptions opts) => new ManifestAddDriverExecutor().Execute(opts),
+                    (ManifestRemoveAppOptions opts) => new ManifestRemoveAppExecutor().Execute(opts),
+                    (ManifestRemoveDriverOptions opts) => new ManifestRemoveDriverExecutor().Execute(opts),
+                    (ManifestModifyAppOptions opts) => new ManifestModifyAppExecutor().Execute(opts),
+                    (ManifestModifyDriverOptions opts) => new ManifestModifyDriverExecutor().Execute(opts)
                 , errs => {
                     var helpText = HelpText.AutoBuild(result, h =>
                     {

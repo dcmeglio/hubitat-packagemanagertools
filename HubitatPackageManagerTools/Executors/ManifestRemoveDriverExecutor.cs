@@ -1,38 +1,31 @@
 ﻿using HubitatPackageManagerTools.Options;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace HubitatPackageManagerTools.Executors
 {
-    internal static class ManifestRemoveDriverExecutor
+    internal class ManifestRemoveDriverExecutor : ManifestExecutorBase
     {
-        public static int Execute(ManifestRemoveDriverOptions options)
+        public int Execute(ManifestRemoveDriverOptions options)
         {
-            JObject manifestContents = null;
-            using (var file = File.OpenText(options.ManifestFile))
-            {
-                manifestContents = (JObject)JToken.ReadFrom(new JsonTextReader(file));
-                JArray drivers = new JArray();
-                if (manifestContents["drivers"] == null)
-                    return 0;
+            JObject manifestContents = OpenExistingManifest(options);
 
-                drivers = manifestContents["drivers"] as JArray;
+            JArray drivers = new JArray();
+            if (manifestContents["drivers"] == null)
+                return 0;
 
-                JToken driver = null;
-                if (!string.IsNullOrEmpty(options.Name))
-                    driver = drivers.FirstOrDefault(p => p["name"]?.ToString() == options.Name);
-                else
-                    driver = drivers.FirstOrDefault(p => p["id"]?.ToString() == options.Id);
+            drivers = manifestContents["drivers"] as JArray;
 
-                if (driver != null)
-                    drivers.Remove(driver);
-            }
-            File.WriteAllText(options.ManifestFile, manifestContents.ToString());
+            JToken driver = null;
+            if (!string.IsNullOrEmpty(options.Name))
+                driver = drivers.FirstOrDefault(p => p["name"]?.ToString() == options.Name);
+            else
+                driver = drivers.FirstOrDefault(p => p["id"]?.ToString() == options.Id);
+
+            if (driver != null)
+                drivers.Remove(driver);
+
+            SaveManifest(options, manifestContents);
             return 0;
         }
     }

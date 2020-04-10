@@ -1,13 +1,12 @@
 ﻿using HubitatPackageManagerTools.Options;
 using Newtonsoft.Json.Linq;
 using System;
-using System.IO;
 
 namespace HubitatPackageManagerTools.Executors
 {
-    internal static class ManifestCreateExecutor
+    internal class ManifestCreateExecutor : ManifestExecutorBase
     {
-        public static int Execute(ManifestCreateOptions options)
+        public int Execute(ManifestCreateOptions options)
         {
             var newManifestContents = new JObject
             {
@@ -27,7 +26,7 @@ namespace HubitatPackageManagerTools.Executors
 
             newManifestContents["packageId"] = Guid.NewGuid().ToString();
 
-            File.WriteAllText(options.ManifestFile, newManifestContents.ToString());
+            SaveManifest(options, newManifestContents);
             return 0;
         }
     }

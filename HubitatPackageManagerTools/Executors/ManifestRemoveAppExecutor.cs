@@ -1,38 +1,31 @@
 ﻿using HubitatPackageManagerTools.Options;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace HubitatPackageManagerTools.Executors
 {
-    internal static class ManifestRemoveAppExecutor
+    internal class ManifestRemoveAppExecutor : ManifestExecutorBase
     {
-        public static int Execute(ManifestRemoveAppOptions options)
+        public int Execute(ManifestRemoveAppOptions options)
         {
-            JObject manifestContents = null;
-            using (var file = File.OpenText(options.ManifestFile))
-            {
-                manifestContents = (JObject)JToken.ReadFrom(new JsonTextReader(file));
-                JArray apps = new JArray();
-                if (manifestContents["apps"] == null)
-                    return 0;
+            JObject manifestContents = OpenExistingManifest(options);
 
-                apps = manifestContents["apps"] as JArray;
+            JArray apps = new JArray();
+            if (manifestContents["apps"] == null)
+                return 0;
 
-                JToken app = null;
-                if (!string.IsNullOrEmpty(options.Name))
-                    app = apps.FirstOrDefault(p => p["name"]?.ToString() == options.Name);
-                else
-                    app = apps.FirstOrDefault(p => p["id"]?.ToString() == options.Id);
+            apps = manifestContents["apps"] as JArray;
 
-                if (app != null)
-                    apps.Remove(app);
-            }
-            File.WriteAllText(options.ManifestFile, manifestContents.ToString());
+            JToken app = null;
+            if (!string.IsNullOrEmpty(options.Name))
+                app = apps.FirstOrDefault(p => p["name"]?.ToString() == options.Name);
+            else
+                app = apps.FirstOrDefault(p => p["id"]?.ToString() == options.Id);
+
+            if (app != null)
+                apps.Remove(app);
+
+            SaveManifest(options, manifestContents);
             return 0;
         }
     }

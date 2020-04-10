@@ -5,9 +5,9 @@ using System.IO;
 
 namespace HubitatPackageManagerTools.Executors
 {
-    internal static class RepositoryCreateExecutor
+    internal class RepositoryCreateExecutor : RepositoryExecutorBase
     {
-        public static int Execute(RepositoryCreateOptions options)
+        public int Execute(RepositoryCreateOptions options)
         {
             var newRepositoryContents = new JObject
             {
@@ -17,8 +17,9 @@ namespace HubitatPackageManagerTools.Executors
                 newRepositoryContents["gitHubUrl"] = options.GithubUrl;
             if (!string.IsNullOrEmpty(options.PaypalUrl))
                 newRepositoryContents["payPalUrl"] = options.PaypalUrl;
+
+            SaveRepository(options, newRepositoryContents);
             
-            File.WriteAllText(options.RepositoryFile, newRepositoryContents.ToString());
             return 0;
         }
     }
