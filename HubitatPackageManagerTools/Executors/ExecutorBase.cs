@@ -36,5 +36,18 @@ namespace HubitatPackageManagerTools.Executors
             if (!string.IsNullOrEmpty(value))
                 json[property] = value;
         }
+
+        protected JArray EnsureArrayExists(JObject json, string arrayName)
+        {
+            var array = json[arrayName] as JArray;
+            if (array == null)
+            {
+                array = new JArray();
+                json.Add(arrayName, array);
+                return array;
+            }
+            else
+                return array;
+        }
     }
 }

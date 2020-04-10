@@ -10,11 +10,7 @@ namespace HubitatPackageManagerTools.Executors
         {
             JObject manifestContents = OpenExistingManifest(options);
 
-            JArray drivers = new JArray();
-            if (manifestContents["drivers"] == null)
-                manifestContents.Add("drivers", drivers);
-            else
-                drivers = manifestContents["drivers"] as JArray;
+            JArray drivers = EnsureArrayExists(manifestContents, "drivers");
 
             string name = options.Name;
             string @namespace = options.Namespace;

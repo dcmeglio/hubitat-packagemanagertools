@@ -9,11 +9,7 @@ namespace HubitatPackageManagerTools.Executors
         {
             JObject repositoryContents = OpenExistingRepository(options);
 
-            JArray packages = new JArray();
-            if (repositoryContents["packages"] == null)
-                repositoryContents.Add("packages", packages);
-            else
-                packages = repositoryContents["packages"] as JArray;
+            JArray packages = EnsureArrayExists(repositoryContents, "packages");
 
             string name = options.Name;
 

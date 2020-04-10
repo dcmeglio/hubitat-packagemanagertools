@@ -10,11 +10,7 @@ namespace HubitatPackageManagerTools.Executors
         {
             JObject manifestContents = OpenExistingManifest(options);
 
-            JArray apps = new JArray();
-            if (manifestContents["apps"] == null)
-                manifestContents.Add("apps", apps);
-            else
-                apps = manifestContents["apps"] as JArray;
+            JArray apps = EnsureArrayExists(manifestContents, "apps");
 
             string name = options.Name;
             string @namespace = options.Namespace;
