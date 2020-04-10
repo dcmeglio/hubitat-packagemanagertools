@@ -10,6 +10,7 @@ namespace HubitatPackageManagerTools.Options
     {
         [Value(0, HelpText = "The local path to the package manifest JSON.", MetaName = "manifestFile")]
         public string ManifestFile { get; set; }
+        [Option(HelpText = "The name of the package.", Group = "modify")]
         public string Name { get; set; }
         [Option(HelpText = "The author of the package.", Group = "modify")]
         public string Author { get; set; }
@@ -21,5 +22,7 @@ namespace HubitatPackageManagerTools.Options
         public string License { get; set; }
         [Option(HelpText = "The release notes of the package version.", Group = "modify")]
         public string ReleaseNotes { get; set; }
+        [Option(HelpText = "The release date of the package in YYYY-MM-DD format. If not specified today's date is used.", Group = "modify")]
+        public string DateReleased { get; set; }
     }
 }
