@@ -49,11 +49,12 @@ namespace HubitatPackageManagerTools
                     (ManifestRemoveDriverOptions opts) => new ManifestRemoveDriverExecutor().Execute(opts),
                     (ManifestModifyAppOptions opts) => new ManifestModifyAppExecutor().Execute(opts),
                     (ManifestModifyDriverOptions opts) => new ManifestModifyDriverExecutor().Execute(opts)
-                , errs => {
+                , errs =>
+                {
                     var helpText = HelpText.AutoBuild(result, h =>
                     {
-                        h.AutoHelp = true; //hide --help
-                        h.AutoVersion = false; //hide --version		
+                        h.AutoHelp = true;
+                        h.AutoVersion = false;
                         return HelpText.DefaultParsingErrorsHandler(result, h);
                     },
                     e => e);

@@ -10,11 +10,9 @@ namespace HubitatPackageManagerTools.Executors
         {
             JObject repositoryContents = OpenExistingRepository(options);
 
-            JArray packages = new JArray();
-            if (repositoryContents["packages"] == null)
-                return 0;
-
-            packages = repositoryContents["packages"] as JArray;
+            JArray packages = repositoryContents["packages"] as JArray;
+            if (packages == null)
+                return -1;
 
             var package = packages.FirstOrDefault(p => p["location"]?.ToString() == options.Manifest);
 

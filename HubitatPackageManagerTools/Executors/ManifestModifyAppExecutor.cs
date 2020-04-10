@@ -10,11 +10,9 @@ namespace HubitatPackageManagerTools.Executors
         {
             JObject manifestContents = OpenExistingManifest(options);
 
-            JArray apps = new JArray();
-            if (manifestContents["apps"] == null)
-                return 0;
-
-            apps = manifestContents["apps"] as JArray;
+            JArray apps = manifestContents["apps"] as JArray;
+            if (apps == null)
+                return -1;
 
             JObject app = null;
             if (!string.IsNullOrEmpty(options.Name))

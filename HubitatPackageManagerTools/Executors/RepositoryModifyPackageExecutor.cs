@@ -12,7 +12,7 @@ namespace HubitatPackageManagerTools.Executors
 
             JArray packages = new JArray();
             if (repositoryContents["packages"] == null)
-                return 0;
+                return -1;
 
             packages = repositoryContents["packages"] as JArray;
 

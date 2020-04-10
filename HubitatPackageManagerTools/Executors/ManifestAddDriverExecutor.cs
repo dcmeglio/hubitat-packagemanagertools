@@ -11,15 +11,12 @@ namespace HubitatPackageManagerTools.Executors
             JObject manifestContents = OpenExistingManifest(options);
             JArray drivers = EnsureArrayExists(manifestContents, "drivers");
 
-            string name = options.Name;
-            string @namespace = options.Namespace;
-
-            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(@namespace))
-            {
-                var groovyFile = DownloadGroovyFile(options.Location);
-                if (groovyFile != null)
-                    (name, @namespace) = GetNameAndNamespace(groovyFile);
-            }
+            string name = null;
+            string @namespace = null;
+            
+            var groovyFile = DownloadGroovyFile(options.Location);
+            if (groovyFile != null)
+                (name, @namespace) = GetNameAndNamespace(groovyFile);
 
             var driver = JObject.FromObject(new
             {

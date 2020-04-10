@@ -12,15 +12,12 @@ namespace HubitatPackageManagerTools.Executors
 
             JArray apps = EnsureArrayExists(manifestContents, "apps");
 
-            string name = options.Name;
-            string @namespace = options.Namespace;
+            string name = null;
+            string @namespace = null;
 
-            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(@namespace))
-            {
-                var groovyFile = DownloadGroovyFile(options.Location);
-                if (groovyFile != null)
-                    (name, @namespace) = GetNameAndNamespace(groovyFile);
-            }
+            var groovyFile = DownloadGroovyFile(options.Location);
+            if (groovyFile != null)
+                (name, @namespace) = GetNameAndNamespace(groovyFile);
 
             var app = JObject.FromObject(new
             {
@@ -32,7 +29,7 @@ namespace HubitatPackageManagerTools.Executors
                 oauth = options.Oauth
             });
             SetNonNullPropertyIfSpecified(app, "version", options.Version);
-            
+
             apps.Add(app);
 
             SaveManifest(options, manifestContents);

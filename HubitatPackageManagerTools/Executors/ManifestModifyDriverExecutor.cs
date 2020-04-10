@@ -10,11 +10,9 @@ namespace HubitatPackageManagerTools.Executors
         {
             JObject manifestContents = OpenExistingManifest(options);
 
-            JArray drivers = new JArray();
-            if (manifestContents["drivers"] == null)
-                return 0;
-
-            drivers = manifestContents["drivers"] as JArray;
+            JArray drivers = manifestContents["drivers"] as JArray;
+            if (drivers == null)
+                return -1;
 
             JObject driver = null;
             if (!string.IsNullOrEmpty(options.Name))
