@@ -14,12 +14,6 @@ namespace HubitatPackageManagerTools.Executors
     {
         public static int Execute(RepositoryAddPackageOptions options)
         {
-            /*{
-			"name": "BOND Home Integration",
-			"category": "Integrations",
-			"location": "https://raw.githubusercontent.com/dcmeglio/hubitat-bond/master/packageManifest.json",
-			"description": "Allows you to integrate a BOND Home device into your Hubitat system"
-		},*/
             JObject repositoryContents = null;
             using (var file = File.OpenText(options.RepositoryFile))
             {

@@ -38,7 +38,9 @@ namespace HubitatPackageManagerTools
                 .MapResult(
                     (RepositoryCreateOptions opts) => RepositoryCreateExecutor.Execute(opts),
                     (RepositoryModifyOptions opts) => RepositoryModifyExecutor.Execute(opts),
-                    (RepositoryAddPackageOptions opts) => RepositoryAddPackageExecutor.Execute(opts)
+                    (RepositoryAddPackageOptions opts) => RepositoryAddPackageExecutor.Execute(opts),
+                    (RepositoryRemovePackageOptions opts) => RepositoryRemovePackageExecutor.Execute(opts),
+                    (RepositoryModifyPackageOptions opts) => RepositoryModifyPackageExecutor.Execute(opts)
                 , errs => {
                     var helpText = HelpText.AutoBuild(result, h =>
                     {

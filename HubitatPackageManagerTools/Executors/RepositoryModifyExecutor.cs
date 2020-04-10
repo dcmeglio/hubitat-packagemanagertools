@@ -14,7 +14,8 @@ namespace HubitatPackageManagerTools.Executors
             using (var file = File.OpenText(options.RepositoryFile))
             {
                 repositoryContents = (JObject)JToken.ReadFrom(new JsonTextReader(file));
-                repositoryContents["author"] = options.Author;
+                if (!string.IsNullOrEmpty(options.Author))
+                    repositoryContents["author"] = options.Author;
                 if (options.GithubUrl.IsSpecified())
                     repositoryContents["gitHubUrl"] = options.GithubUrl;
                  else if (options.GithubUrl.IsNullValue())
