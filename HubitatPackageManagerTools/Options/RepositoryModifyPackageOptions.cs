@@ -1,4 +1,6 @@
 ﻿using CommandLine;
+using CommandLine.Text;
+using System.Collections.Generic;
 
 namespace HubitatPackageManagerTools.Options
 {
@@ -13,5 +15,19 @@ namespace HubitatPackageManagerTools.Options
         public string Category { get; set; }
         [Option(HelpText = "The description of the package.", Group = "modify")]
         public string Description { get; set; }
+
+        [Usage(ApplicationAlias = "hpm")]
+        public static IEnumerable<Example> Examples
+        {
+            get
+            {
+                yield return new Example("Modify a package's category in a repository", new[] { UnParserSettings.WithUseEqualTokenOnly() }, new RepositoryModifyPackageOptions
+                {
+                    RepositoryFile = "repository.json",
+                    Manifest = "https://raw.githubusercontent.com/someuser/hubitat-project/master/packageManifest.json",
+                    Category = "Convenience"
+                });
+            }
+        }
     }
 }

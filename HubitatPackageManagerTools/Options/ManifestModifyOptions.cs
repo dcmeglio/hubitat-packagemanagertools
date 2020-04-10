@@ -1,4 +1,6 @@
 ﻿using CommandLine;
+using CommandLine.Text;
+using System.Collections.Generic;
 
 namespace HubitatPackageManagerTools.Options
 {
@@ -19,5 +21,19 @@ namespace HubitatPackageManagerTools.Options
         public string ReleaseNotes { get; set; }
         [Option(HelpText = "The release date of the package in YYYY-MM-DD format. If not specified today's date is used.", Group = "modify")]
         public string DateReleased { get; set; }
+
+        [Usage(ApplicationAlias = "hpm")]
+        public static IEnumerable<Example> Examples
+        {
+            get
+            {
+                yield return new Example("Release a new version", new[] { UnParserSettings.WithUseEqualTokenOnly() }, new ManifestModifyOptions
+                {
+                    ManifestFile = "packageManifest.json",
+                    Version = "1.2",
+                    ReleaseNotes = "Bug fixes and performance improvements"
+                });
+            }
+        }
     }
 }

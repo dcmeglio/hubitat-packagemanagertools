@@ -19,7 +19,10 @@ namespace HubitatPackageManagerTools.Executors
             if (manifestContents == null)
                 throw new ApplicationException($"Manifest file {options.Manifest} either does not exist or is not valid.");
             if (name == null)
-                name = manifestContents["packageName"].ToString();
+                name = manifestContents["packageName"]?.ToString();
+
+            if (name == null)
+                throw new ApplicationException("Unable to determine package name from the manifest.");
 
             packages.Add(JObject.FromObject(new
             {

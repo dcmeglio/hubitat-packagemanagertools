@@ -10,11 +10,16 @@ namespace HubitatPackageManagerTools.Executors
         {
             var newManifestContents = new JObject
             {
-                ["name"] = options.Name,
+                ["packageName"] = options.Name,
                 ["author"] = options.Author
             };
             SetNonNullPropertyIfSpecified(newManifestContents, "version", options.Version);
-            SetNonNullPropertyIfSpecified(newManifestContents, "minimumHEVersion", options.HEVersion);
+            SetNonNullPropertyIfSpecified(newManifestContents, "minimumHEVersion", options.HEVersion ?? "0.0");
+            if (!string.IsNullOrEmpty(options.License))
+            {
+                if (DownloadFile(options.License) == null)
+                    throw new ApplicationException($"Unable to access license file {options.License}");
+            }
             SetNonNullPropertyIfSpecified(newManifestContents, "licenseFile", options.License);
             SetNonNullPropertyIfSpecified(newManifestContents, "version", options.Version);
             
@@ -22,8 +27,6 @@ namespace HubitatPackageManagerTools.Executors
                 newManifestContents["dateReleased"] = options.DateReleased;
             else
                 newManifestContents["dateReleased"] = DateTime.Now.ToString("yyyy-MM-dd");
-
-            newManifestContents["packageId"] = Guid.NewGuid().ToString();
 
             SaveManifest(options, newManifestContents);
             return 0;

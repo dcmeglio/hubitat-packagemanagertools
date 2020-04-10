@@ -1,4 +1,6 @@
 ﻿using CommandLine;
+using CommandLine.Text;
+using System.Collections.Generic;
 
 namespace HubitatPackageManagerTools.Options
 {
@@ -14,6 +16,26 @@ namespace HubitatPackageManagerTools.Options
         [Option(HelpText = "The version of the driver.", Group = "modify")]
         public string Version { get; set; }
         [Option(HelpText = "Whether or not the driver is required.", Group = "modify")]
-        public bool Required { get; set; }
+        public bool? Required { get; set; }
+
+        [Usage(ApplicationAlias = "hpm")]
+        public static IEnumerable<Example> Examples
+        {
+            get
+            {
+                yield return new Example("Release a new version by name", new[] { UnParserSettings.WithUseEqualTokenOnly() }, new ManifestModifyDriverOptions
+                {
+                    ManifestFile = "packageManifest.json",
+                    Version = "1.2",
+                    Name = "My App"
+                });
+                yield return new Example("Release a new version by id", new[] { UnParserSettings.WithUseEqualTokenOnly() }, new ManifestModifyDriverOptions
+                {
+                    ManifestFile = "packageManifest.json",
+                    Version = "1.2",
+                    Id = "13ded13f-8ab5-42e7-9b80-31159f62ecfa"
+                });
+            }
+        }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using CommandLine;
+using CommandLine.Text;
+using System.Collections.Generic;
 
 namespace HubitatPackageManagerTools.Options
 {
@@ -10,8 +12,27 @@ namespace HubitatPackageManagerTools.Options
         [Option(HelpText = "The version of the driver.")]
         public string Version { get; set; }
         [Option(HelpText = "Whether or not the app is required.")]
-        public bool Required { get; set; }
+        public bool? Required { get; set; }
         [Option(HelpText = "Whether or not the app uses OAuth.")]
-        public bool Oauth { get; set; }
+        public bool? Oauth { get; set; }
+
+        [Usage(ApplicationAlias = "hpm")]
+        public static IEnumerable<Example> Examples
+        {
+            get
+            {
+                yield return new Example("Add an app", new[] { UnParserSettings.WithUseEqualTokenOnly() }, new ManifestAddAppOptions
+                {
+                    ManifestFile = "packageManifest.json",
+                    Location = "https://raw.githubusercontent.com/someuser/hubitat-app/master/app.groovy"
+                });
+                yield return new Example("Add an app with version", new[] { UnParserSettings.WithUseEqualTokenOnly() }, new ManifestAddAppOptions
+                {
+                    ManifestFile = "packageManifest.json",
+                    Location = "https://raw.githubusercontent.com/someuser/hubitat-app/master/app.groovy",
+                    Version = "1.0"
+                });
+            }
+        }
     }
 }

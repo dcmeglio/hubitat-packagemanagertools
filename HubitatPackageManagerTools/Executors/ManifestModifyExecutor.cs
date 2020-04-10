@@ -11,7 +11,7 @@ namespace HubitatPackageManagerTools.Executors
             JObject manifestContents = OpenExistingManifest(options);
 
             if (!string.IsNullOrEmpty(options.Name))
-                manifestContents["name"] = options.Name;
+                manifestContents["packageName"] = options.Name;
             if (!string.IsNullOrEmpty(options.Author))
                 manifestContents["author"] = options.Author;
 

@@ -28,8 +28,8 @@ namespace HubitatPackageManagerTools.Executors
                 name = @name,
                 @namespace = @namespace,
                 location = options.Location,
-                required = options.Required,
-                oauth = options.Oauth
+                required = options.Required ?? false,
+                oauth = options.Oauth ?? false
             });
             SetNonNullPropertyIfSpecified(app, "version", options.Version);
 

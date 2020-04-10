@@ -27,7 +27,7 @@ namespace HubitatPackageManagerTools.Executors
                 name = @name,
                 @namespace = @namespace,
                 location = options.Location,
-                required = options.Required
+                required = options.Required ?? false
             });
             SetNonNullPropertyIfSpecified(driver, "version", options.Version);
  

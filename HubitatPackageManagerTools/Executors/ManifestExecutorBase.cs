@@ -25,8 +25,7 @@ namespace HubitatPackageManagerTools.Executors
         {
             try
             {
-                using WebClient wc = new WebClient();
-                return wc.DownloadString(url).Replace("\r", "").Replace("\n", "");
+                return DownloadFile(url)?.Replace("\r", "").Replace("\n", "");
             }
             catch
             {

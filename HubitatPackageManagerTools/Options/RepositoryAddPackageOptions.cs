@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using CommandLine;
+using CommandLine.Text;
 
 namespace HubitatPackageManagerTools.Options
 {
@@ -16,5 +15,21 @@ namespace HubitatPackageManagerTools.Options
         public string Category { get; set; }
         [Option(HelpText = "The description of the package.", Required = true)]
         public string Description { get; set; }
+
+        [Usage(ApplicationAlias = "hpm")]
+        public static IEnumerable<Example> Examples
+        {
+            get
+            {
+                yield return new Example("Add a package to the repository", new[] { UnParserSettings.WithUseEqualTokenOnly() }, new RepositoryAddPackageOptions
+                {
+                    RepositoryFile = "repository.json",
+                    Manifest = "https://raw.githubusercontent.com/someuser/hubitat-project/master/packageManifest.json",
+                    Category = "Integrations",
+                    Description = "A new integration",
+                    Name = "My App"
+                });
+            }
+        }
     }
 }

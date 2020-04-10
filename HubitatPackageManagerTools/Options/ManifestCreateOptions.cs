@@ -1,4 +1,6 @@
 ﻿using CommandLine;
+using CommandLine.Text;
+using System.Collections.Generic;
 
 namespace HubitatPackageManagerTools.Options
 {
@@ -17,5 +19,33 @@ namespace HubitatPackageManagerTools.Options
         public string License { get; set; }
         [Option(HelpText = "The release date of the package in YYYY-MM-DD format. If not specified today's date is used.")]
         public string DateReleased { get; set; }
+
+        [Usage(ApplicationAlias = "hpm")]
+        public static IEnumerable<Example> Examples
+        {
+            get
+            {
+                yield return new Example("Create a package with version", new[] { UnParserSettings.WithUseEqualTokenOnly() }, new ManifestCreateOptions
+                {
+                    ManifestFile = "packageManifest.json",
+                    Name = "My Package",
+                    Author = "My Name",
+                    Version = "1.0"
+                });
+                yield return new Example("Create a package with no version", new[] { UnParserSettings.WithUseEqualTokenOnly() }, new ManifestCreateOptions
+                {
+                    ManifestFile = "packageManifest.json",
+                    Name = "My Package",
+                    Author = "My Name"
+                });
+                yield return new Example("Create a package with license", new[] { UnParserSettings.WithUseEqualTokenOnly() }, new ManifestCreateOptions
+                {
+                    ManifestFile = "packageManifest.json",
+                    Name = "My Package",
+                    Author = "My Name",
+                    License = "https://opensource.org/licenses/LGPL-2.0"
+                });
+            }
+        }
     }
 }

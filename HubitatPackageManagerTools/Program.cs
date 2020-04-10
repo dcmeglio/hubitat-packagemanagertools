@@ -57,6 +57,7 @@ namespace HubitatPackageManagerTools
                         {
                             h.AutoHelp = true;
                             h.AutoVersion = false;
+                            h.MaximumDisplayWidth = 120;
                             return HelpText.DefaultParsingErrorsHandler(result, h);
                         },
                         e => e);

@@ -12,11 +12,21 @@ namespace HubitatPackageManagerTools.Executors
         {
             try
             {
-                using (WebClient wc = new WebClient())
-                {
-                    StringReader sr = new StringReader(wc.DownloadString(url));
-                    return (JObject)JToken.ReadFrom(new JsonTextReader(sr));
-                }
+                StringReader sr = new StringReader(DownloadFile(url));
+                return (JObject)JToken.ReadFrom(new JsonTextReader(sr));
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        protected string DownloadFile(string url)
+        {
+            try
+            {
+                using WebClient wc = new WebClient();
+                return wc.DownloadString(url);
             }
             catch
             {

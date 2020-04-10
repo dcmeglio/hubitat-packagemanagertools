@@ -1,4 +1,6 @@
 ﻿using CommandLine;
+using CommandLine.Text;
+using System.Collections.Generic;
 
 namespace HubitatPackageManagerTools.Options
 {
@@ -11,5 +13,18 @@ namespace HubitatPackageManagerTools.Options
         public string GithubUrl { get; set; }
         [Option(HelpText = "The PayPal URL of the repository.", Group = "modify")]
         public string PaypalUrl { get; set; }
+
+        [Usage(ApplicationAlias = "hpm")]
+        public static IEnumerable<Example> Examples
+        {
+            get
+            {
+                yield return new Example("Modify the repository's author", new[] { UnParserSettings.WithUseEqualTokenOnly() }, new RepositoryModifyOptions
+                {
+                    RepositoryFile = "repository.json",
+                    Author = "New Author"
+                });
+            }
+        }
     }
 }
