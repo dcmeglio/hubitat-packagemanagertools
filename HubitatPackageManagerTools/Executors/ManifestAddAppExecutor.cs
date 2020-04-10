@@ -19,14 +19,7 @@ namespace HubitatPackageManagerTools.Executors
             {
                 var groovyFile = DownloadGroovyFile(options.Location);
                 if (groovyFile != null)
-                {
-                    var nameMatches = nameMatcher.Match(groovyFile);
-                    var namespaceMatches = namespaceMatcher.Match(groovyFile);
-                    if (nameMatches?.Groups.Count > 1)
-                        name = nameMatches.Groups[1].Value;
-                    if (namespaceMatches?.Groups.Count > 1)
-                        @namespace = namespaceMatches.Groups[1].Value;
-                }
+                    (name, @namespace) = GetNameAndNamespace(groovyFile);
             }
 
             var app = JObject.FromObject(new

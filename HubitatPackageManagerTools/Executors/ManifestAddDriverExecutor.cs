@@ -9,7 +9,6 @@ namespace HubitatPackageManagerTools.Executors
         public int Execute(ManifestAddDriverOptions options)
         {
             JObject manifestContents = OpenExistingManifest(options);
-
             JArray drivers = EnsureArrayExists(manifestContents, "drivers");
 
             string name = options.Name;
@@ -19,14 +18,7 @@ namespace HubitatPackageManagerTools.Executors
             {
                 var groovyFile = DownloadGroovyFile(options.Location);
                 if (groovyFile != null)
-                {
-                    var nameMatches = nameMatcher.Match(groovyFile);
-                    var namespaceMatches = namespaceMatcher.Match(groovyFile);
-                    if (nameMatches?.Groups.Count > 1)
-                        name = nameMatches.Groups[1].Value;
-                    if (namespaceMatches?.Groups.Count > 1)
-                        @namespace = namespaceMatches.Groups[1].Value;
-                }
+                    (name, @namespace) = GetNameAndNamespace(groovyFile);
             }
 
             var driver = JObject.FromObject(new

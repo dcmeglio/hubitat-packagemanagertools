@@ -33,5 +33,17 @@ namespace HubitatPackageManagerTools.Executors
                 return null;
             }
         }
+
+        protected (string name, string @namespace) GetNameAndNamespace(string groovyFile)
+        {
+            string name = null, @namespace = null;
+            var nameMatches = nameMatcher.Match(groovyFile);
+            var namespaceMatches = namespaceMatcher.Match(groovyFile);
+            if (nameMatches?.Groups.Count > 1)
+                name = nameMatches.Groups[1].Value;
+            if (namespaceMatches?.Groups.Count > 1)
+                @namespace = namespaceMatches.Groups[1].Value;
+            return (name, @namespace);
+        }
     }
 }
