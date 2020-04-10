@@ -42,7 +42,9 @@ namespace HubitatPackageManagerTools
                     (RepositoryRemovePackageOptions opts) => RepositoryRemovePackageExecutor.Execute(opts),
                     (RepositoryModifyPackageOptions opts) => RepositoryModifyPackageExecutor.Execute(opts),
                     (ManifestCreateOptions opts) => ManifestCreateExecutor.Execute(opts),
-                    (ManifestModifyOptions opts) => ManifestModifyExecutor.Execute(opts)
+                    (ManifestModifyOptions opts) => ManifestModifyExecutor.Execute(opts),
+                    (ManifestAddAppOptions opts) => ManifestAddAppExecutor.Execute(opts),
+                    (ManifestAddDriverOptions opts) => ManifestAddDriverExecutor.Execute(opts)
                 , errs => {
                     var helpText = HelpText.AutoBuild(result, h =>
                     {

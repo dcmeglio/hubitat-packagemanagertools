@@ -11,9 +11,9 @@ namespace HubitatPackageManagerTools.Options
         [Value(0, HelpText = "The local path to the package manifest JSON.", MetaName = "manifestFile")]
         public string ManifestFile { get; set; }
 
-        [Option(HelpText = "The name of the driver.", Required = true)]
+        [Option(HelpText = "The name of the driver.")]
         public string Name { get; set; }
-        [Option(HelpText = "The namespace of the driver.", Required = true)]
+        [Option(HelpText = "The namespace of the driver.")]
         public string Namespace { get; set; }
         [Option(HelpText = "The URL of the driver's Groovy file.", Required = true)]
         public string Location { get; set; }

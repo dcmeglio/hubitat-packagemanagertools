@@ -10,9 +10,9 @@ namespace HubitatPackageManagerTools.Options
     {
         [Value(0, HelpText = "The local path to the package manifest JSON.", MetaName = "manifestFile")]
         public string ManifestFile { get; set; }
-        [Option(HelpText = "The name of the app.", Required = true)]
+        [Option(HelpText = "The name of the app.")]
         public string Name { get; set; }
-        [Option(HelpText = "The namespace of the app.", Required = true)]
+        [Option(HelpText = "The namespace of the app.")]
         public string Namespace { get; set; }
         [Option(HelpText = "The URL of the app's Groovy file.", Required = true)]
         public string Location { get; set; }

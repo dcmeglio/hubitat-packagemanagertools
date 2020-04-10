@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "HubitatPackageManagerTools": {
+      "commandName": "Project",
+      "commandLineArgs": "manifest-add-app \"C:\\users\\dmegl_000\\Desktop\\packageManifest.json\" --location=\"https://raw.githubusercontent.com/dcmeglio/hubitat-bond/master/apps/BOND_Home_Integration.groovy\" --version=1.1"
+    }
+  }
+}
