@@ -1,8 +1,5 @@
 ﻿using HubitatPackageManagerTools.Options;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.IO;
-using System.Net;
 
 namespace HubitatPackageManagerTools.Executors
 {
@@ -22,13 +19,11 @@ namespace HubitatPackageManagerTools.Executors
 
             if (name == null)
             {
-                using (WebClient wc = new WebClient())
-                {
-                    StringReader sr = new StringReader(wc.DownloadString(options.Manifest));
-                    var manifestContents = (JObject)JToken.ReadFrom(new JsonTextReader(sr));
+                var manifestContents = DownloadJsonFile(options.Manifest);
 
+                if (manifestContents != null)
                     name = manifestContents["packageName"].ToString();
-                }
+
             }
             packages.Add(JObject.FromObject(new
             {

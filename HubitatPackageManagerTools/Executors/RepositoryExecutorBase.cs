@@ -8,7 +8,7 @@ using System.Text;
 
 namespace HubitatPackageManagerTools.Executors
 {
-    internal class RepositoryExecutorBase
+    internal class RepositoryExecutorBase : ExecutorBase
     {
         protected JObject OpenExistingRepository(RepositoryOptionsBase options)
         {

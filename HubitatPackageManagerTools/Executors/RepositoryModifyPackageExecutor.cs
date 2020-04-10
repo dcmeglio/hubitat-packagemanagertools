@@ -29,13 +29,9 @@ namespace HubitatPackageManagerTools.Executors
                     package["name"] = options.Name;
                 else
                 {
-                    using (WebClient wc = new WebClient())
-                    {
-                        StringReader sr = new StringReader(wc.DownloadString(options.Manifest));
-                        var manifestContents = (JObject)JToken.ReadFrom(new JsonTextReader(sr));
-
+                    var manifestContents = DownloadJsonFile(options.Manifest);
+                    if (manifestContents != null)
                         package["name"] = manifestContents["packageName"].ToString();
-                    }
                 }
                 if (!string.IsNullOrEmpty(options.Description))
                     package["description"] = options.Description;

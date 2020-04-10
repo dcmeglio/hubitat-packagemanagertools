@@ -1,15 +1,12 @@
 ﻿using HubitatPackageManagerTools.Options;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Net;
 using System.Text.RegularExpressions;
 
 namespace HubitatPackageManagerTools.Executors
 {
     internal class ManifestAddDriverExecutor : ManifestExecutorBase
     {
-        static Regex matchName = new Regex("definition\\s*?\\(.*?name:\\s*\"([^\"]*)\"", RegexOptions.Compiled | RegexOptions.Multiline | RegexOptions.Singleline);
-        static Regex matchNamespace = new Regex("definition\\s*?\\(.*?namespace:\\s*\"([^\"]*)\"", RegexOptions.Compiled | RegexOptions.Multiline | RegexOptions.Singleline);
         public int Execute(ManifestAddDriverOptions options)
         {
             JObject manifestContents = OpenExistingManifest(options);
@@ -25,15 +22,16 @@ namespace HubitatPackageManagerTools.Executors
 
             if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(@namespace))
             {
-                WebClient wc = new WebClient();
-
-                var groovyFile = wc.DownloadString(options.Location).Replace("\r", "").Replace("\n", "");
-                var nameMatches = matchName.Match(groovyFile);
-                var namespaceMatches = matchNamespace.Match(groovyFile);
-                if (nameMatches?.Groups.Count > 1)
-                    name = nameMatches.Groups[1].Value;
-                if (namespaceMatches?.Groups.Count > 1)
-                    @namespace = namespaceMatches.Groups[1].Value;
+                var groovyFile = DownloadGroovyFile(options.Location);
+                if (groovyFile != null)
+                {
+                    var nameMatches = nameMatcher.Match(groovyFile);
+                    var namespaceMatches = namespaceMatcher.Match(groovyFile);
+                    if (nameMatches?.Groups.Count > 1)
+                        name = nameMatches.Groups[1].Value;
+                    if (namespaceMatches?.Groups.Count > 1)
+                        @namespace = namespaceMatches.Groups[1].Value;
+                }
             }
 
 
