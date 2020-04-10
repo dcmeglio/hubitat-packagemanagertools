@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using CommandLine;
+﻿using CommandLine;
 
 namespace HubitatPackageManagerTools.Options
 {
     [Verb("manifest-add-app", HelpText = "Add an app to a manifest.")]
-    internal class ManifestAddAppOptions
+    internal class ManifestAddAppOptions : ManifestOptionsBase
     {
-        [Value(0, HelpText = "The local path to the package manifest JSON.", MetaName = "manifestFile")]
-        public string ManifestFile { get; set; }
         [Option(HelpText = "The name of the app.")]
         public string Name { get; set; }
         [Option(HelpText = "The namespace of the app.")]

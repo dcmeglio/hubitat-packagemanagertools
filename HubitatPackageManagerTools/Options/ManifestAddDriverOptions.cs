@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using CommandLine;
+﻿using CommandLine;
 
 namespace HubitatPackageManagerTools.Options
 {
     [Verb("manifest-add-driver", HelpText = "Add a driver to a manifest.")]
-    internal class ManifestAddDriverOptions
+    internal class ManifestAddDriverOptions : ManifestOptionsBase
     {
-        [Value(0, HelpText = "The local path to the package manifest JSON.", MetaName = "manifestFile")]
-        public string ManifestFile { get; set; }
-
         [Option(HelpText = "The name of the driver.")]
         public string Name { get; set; }
         [Option(HelpText = "The namespace of the driver.")]

@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using CommandLine;
+﻿using CommandLine;
 
 namespace HubitatPackageManagerTools.Options
 {
     [Verb("manifest-modify", HelpText = "Modify an existing manifest.")]
-    internal class ManifestModifyOptions
+    internal class ManifestModifyOptions : ManifestOptionsBase
     {
-        [Value(0, HelpText = "The local path to the package manifest JSON.", MetaName = "manifestFile")]
-        public string ManifestFile { get; set; }
         [Option(HelpText = "The name of the package.", Group = "modify")]
         public string Name { get; set; }
         [Option(HelpText = "The author of the package.", Group = "modify")]

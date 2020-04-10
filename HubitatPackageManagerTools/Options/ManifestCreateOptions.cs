@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using CommandLine;
+﻿using CommandLine;
 
 namespace HubitatPackageManagerTools.Options
 {
     [Verb("manifest-create", HelpText = "Create a new manifest.")]
-    internal class ManifestCreateOptions
+    internal class ManifestCreateOptions : ManifestOptionsBase
     {
-        [Value(0, HelpText = "The local path to the package manifest JSON.", MetaName = "manifestFile")]
-        public string ManifestFile { get; set; }
-
         [Option(HelpText ="The name of the package.", Required = true)]
         public string Name { get; set; }
         [Option(HelpText = "The author of the package.", Required = true)]

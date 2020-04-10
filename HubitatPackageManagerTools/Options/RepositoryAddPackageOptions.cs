@@ -6,11 +6,8 @@ using CommandLine;
 namespace HubitatPackageManagerTools.Options
 {
     [Verb("repository-add-package", HelpText = "Add a package to a repository repository.")]
-    internal class RepositoryAddPackageOptions
+    internal class RepositoryAddPackageOptions : RepositoryOptionsBase
     {
-        [Value(0, HelpText = "The local path to the repository JSON.", MetaName = "repositoryFile")]
-        public string RepositoryFile { get; set; }
-
         [Option(HelpText = "The URL of the package manifest JSON.", Required = true)]
         public string Manifest { get; set; }
         [Option(HelpText = "The name of the package. If not specified it will be read from the manifest.")]
