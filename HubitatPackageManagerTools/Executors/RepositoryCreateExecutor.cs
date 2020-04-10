@@ -1,9 +1,7 @@
-﻿using HubitatPackageManagerTools.Options;
+﻿using HubitatPackageManagerTools.Extensions;
+using HubitatPackageManagerTools.Options;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace HubitatPackageManagerTools.Executors
 {
@@ -11,11 +9,15 @@ namespace HubitatPackageManagerTools.Executors
     {
         public static int Execute(RepositoryCreateOptions options)
         {
-            var newRepositoryContents = new JObject(new JProperty("author", options.Author));
-            if (options.GithubUrl != null)
-                newRepositoryContents.Add("gitHubUrl", options.GithubUrl);
-            if (options.PaypalUrl != null)
-                newRepositoryContents.Add("payPalUrl", options.PaypalUrl);
+            var newRepositoryContents = new JObject
+            {
+                ["author"] = options.Author
+            };
+            if (options.GithubUrl.IsSpecified())
+                newRepositoryContents["gitHubUrl"] = options.GithubUrl;
+            if (options.PaypalUrl.IsSpecified())
+                newRepositoryContents["payPalUrl"] = options.PaypalUrl;
+            
             File.WriteAllText(options.RepositoryFile, newRepositoryContents.ToString());
             return 0;
         }

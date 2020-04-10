@@ -13,6 +13,8 @@ namespace HubitatPackageManagerTools.Options
 
         [Option(HelpText = "The URL of the package manifest JSON.", Required = true)]
         public string Manifest { get; set; }
+        [Option(HelpText = "The name of the package. If not specified it will be read from the manifest.")]
+        public string Name { get; set; }
         [Option(HelpText = "The category of the package.", Required = true)]
         public string Category { get; set; }
         [Option(HelpText = "The description of the package.", Required = true)]
