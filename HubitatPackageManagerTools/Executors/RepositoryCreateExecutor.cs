@@ -1,7 +1,5 @@
-﻿using HubitatPackageManagerTools.Extensions;
-using HubitatPackageManagerTools.Options;
+﻿using HubitatPackageManagerTools.Options;
 using Newtonsoft.Json.Linq;
-using System.IO;
 
 namespace HubitatPackageManagerTools.Executors
 {
@@ -13,10 +11,8 @@ namespace HubitatPackageManagerTools.Executors
             {
                 ["author"] = options.Author
             };
-            if (!string.IsNullOrEmpty(options.GithubUrl))
-                newRepositoryContents["gitHubUrl"] = options.GithubUrl;
-            if (!string.IsNullOrEmpty(options.PaypalUrl))
-                newRepositoryContents["payPalUrl"] = options.PaypalUrl;
+            SetNonNullPropertyIfSpecified(newRepositoryContents, "gitHubUrl", options.GithubUrl);
+            SetNonNullPropertyIfSpecified(newRepositoryContents, "payPalUrl", options.PaypalUrl);
 
             SaveRepository(options, newRepositoryContents);
             

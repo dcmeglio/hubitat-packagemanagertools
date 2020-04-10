@@ -1,7 +1,6 @@
 ﻿using HubitatPackageManagerTools.Options;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Text.RegularExpressions;
 
 namespace HubitatPackageManagerTools.Executors
 {
@@ -43,8 +42,8 @@ namespace HubitatPackageManagerTools.Executors
                 location = options.Location,
                 required = options.Required
             });
-            if (!string.IsNullOrEmpty(options.Version))
-                driver["version"] = options.Version;
+            SetNonNullPropertyIfSpecified(driver, "version", options.Version);
+ 
             drivers.Add(driver);
 
 

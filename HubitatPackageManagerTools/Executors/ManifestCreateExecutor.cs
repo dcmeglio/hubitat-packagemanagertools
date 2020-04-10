@@ -13,12 +13,11 @@ namespace HubitatPackageManagerTools.Executors
                 ["name"] = options.Name,
                 ["author"] = options.Author
             };
-            if (!string.IsNullOrEmpty(options.Version))
-                newManifestContents["version"] = options.Version;
-            if (!string.IsNullOrEmpty(options.HEVersion))
-                newManifestContents["minimumHEVersion"] = options.HEVersion;
-            if (!string.IsNullOrEmpty(options.License))
-                newManifestContents["licenseFile"] = options.License;
+            SetNonNullPropertyIfSpecified(newManifestContents, "version", options.Version);
+            SetNonNullPropertyIfSpecified(newManifestContents, "minimumHEVersion", options.HEVersion);
+            SetNonNullPropertyIfSpecified(newManifestContents, "licenseFile", options.License);
+            SetNonNullPropertyIfSpecified(newManifestContents, "version", options.Version);
+            
             if (!string.IsNullOrEmpty(options.DateReleased))
                 newManifestContents["dateReleased"] = options.DateReleased;
             else

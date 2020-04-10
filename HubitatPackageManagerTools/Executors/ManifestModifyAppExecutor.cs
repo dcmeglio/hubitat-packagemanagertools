@@ -40,15 +40,9 @@ namespace HubitatPackageManagerTools.Executors
                 else if (options.Oauth == false)
                     app["oauth"] = false;
 
-                if (!string.IsNullOrEmpty(options.Name))
-                    app["name"] = options.Name;
-
-                if (!string.IsNullOrEmpty(options.Namespace))
-                    app["namespace"] = options.Namespace;
-
-                if (!string.IsNullOrEmpty(options.Location))
-                    app["location"] = options.Location;
-
+                SetNonNullPropertyIfSpecified(app, "name", options.Name);
+                SetNonNullPropertyIfSpecified(app, "namespace", options.Namespace);
+                SetNonNullPropertyIfSpecified(app, "location", options.Location);
             }
 
             SaveManifest(options, manifestContents);

@@ -1,9 +1,6 @@
 ﻿using HubitatPackageManagerTools.Options;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.IO;
 using System.Linq;
-using System.Net;
 
 namespace HubitatPackageManagerTools.Executors
 {
@@ -23,8 +20,8 @@ namespace HubitatPackageManagerTools.Executors
 
             if (package != null)
             {
-                if (!string.IsNullOrEmpty(options.Category))
-                    package["category"] = options.Category;
+                SetNonNullPropertyIfSpecified(package, "category", options.Category);
+                
                 if (!string.IsNullOrEmpty(options.Name))
                     package["name"] = options.Name;
                 else
@@ -33,8 +30,7 @@ namespace HubitatPackageManagerTools.Executors
                     if (manifestContents != null)
                         package["name"] = manifestContents["packageName"].ToString();
                 }
-                if (!string.IsNullOrEmpty(options.Description))
-                    package["description"] = options.Description;
+                SetNonNullPropertyIfSpecified(package, "description", options.Description);
             }
 
             SaveRepository(options, repositoryContents);

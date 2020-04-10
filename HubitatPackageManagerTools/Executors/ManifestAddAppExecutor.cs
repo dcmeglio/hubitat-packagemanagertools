@@ -1,7 +1,6 @@
 ﻿using HubitatPackageManagerTools.Options;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Text.RegularExpressions;
 
 namespace HubitatPackageManagerTools.Executors
 {
@@ -34,7 +33,6 @@ namespace HubitatPackageManagerTools.Executors
                 }
             }
 
-
             var app = JObject.FromObject(new
             {
                 id = Guid.NewGuid().ToString(),
@@ -44,8 +42,8 @@ namespace HubitatPackageManagerTools.Executors
                 required = options.Required,
                 oauth = options.Oauth
             });
-            if (!string.IsNullOrEmpty(options.Version))
-                app["version"] = options.Version;
+            SetNonNullPropertyIfSpecified(app, "version", options.Version);
+            
             apps.Add(app);
 
 

@@ -35,14 +35,9 @@ namespace HubitatPackageManagerTools.Executors
                 else if (options.Required == false)
                     driver["required"] = false;
 
-                if (!string.IsNullOrEmpty(options.Name))
-                    driver["name"] = options.Name;
-
-                if (!string.IsNullOrEmpty(options.Namespace))
-                    driver["namespace"] = options.Namespace;
-
-                if (!string.IsNullOrEmpty(options.Location))
-                    driver["location"] = options.Location;
+                SetNonNullPropertyIfSpecified(driver, "name", options.Name);
+                SetNonNullPropertyIfSpecified(driver, "namespace", options.Namespace);
+                SetNonNullPropertyIfSpecified(driver, "location", options.Location);
             }
 
             SaveManifest(options, manifestContents);

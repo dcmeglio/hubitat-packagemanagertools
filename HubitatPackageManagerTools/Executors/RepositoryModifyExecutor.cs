@@ -9,8 +9,7 @@ namespace HubitatPackageManagerTools.Executors
         {
             var repositoryContents = OpenExistingRepository(options);
 
-            if (!string.IsNullOrEmpty(options.Author))
-                repositoryContents["author"] = options.Author;
+            SetNonNullPropertyIfSpecified(repositoryContents, "author", options.Author);
             if (options.GithubUrl.IsSpecified())
                 repositoryContents["gitHubUrl"] = options.GithubUrl;
             else if (options.GithubUrl.IsNullValue())

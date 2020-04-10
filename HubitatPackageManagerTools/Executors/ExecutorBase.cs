@@ -22,5 +22,11 @@ namespace HubitatPackageManagerTools.Executors
                 return null;
             }
         }
+
+        protected void SetNonNullPropertyIfSpecified(JToken json, string property, string value)
+        {
+            if (!string.IsNullOrEmpty(value))
+                json[property] = value;
+        }
     }
 }
