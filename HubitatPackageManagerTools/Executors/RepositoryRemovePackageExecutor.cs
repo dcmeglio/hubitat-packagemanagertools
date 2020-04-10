@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace HubitatPackageManagerTools.Executors
 {
-    public class RepositoryRemovePackageExecutor
+    public static class RepositoryRemovePackageExecutor
     {
         internal static int Execute(RepositoryRemovePackageOptions options)
         {

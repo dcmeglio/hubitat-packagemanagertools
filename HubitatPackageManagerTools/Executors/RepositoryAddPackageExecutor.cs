@@ -10,7 +10,7 @@ using System.Text;
 
 namespace HubitatPackageManagerTools.Executors
 {
-    internal class RepositoryAddPackageExecutor
+    internal static class RepositoryAddPackageExecutor
     {
         public static int Execute(RepositoryAddPackageOptions options)
         {

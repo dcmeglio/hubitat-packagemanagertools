@@ -7,7 +7,7 @@ using System.Net;
 
 namespace HubitatPackageManagerTools.Executors
 {
-    public class RepositoryModifyPackageExecutor
+    public static class RepositoryModifyPackageExecutor
     {
         internal static int Execute(RepositoryModifyPackageOptions options)
         {

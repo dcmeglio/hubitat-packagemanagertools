@@ -13,9 +13,9 @@ namespace HubitatPackageManagerTools.Executors
             {
                 ["author"] = options.Author
             };
-            if (options.GithubUrl.IsSpecified())
+            if (!string.IsNullOrEmpty(options.GithubUrl))
                 newRepositoryContents["gitHubUrl"] = options.GithubUrl;
-            if (options.PaypalUrl.IsSpecified())
+            if (!string.IsNullOrEmpty(options.PaypalUrl))
                 newRepositoryContents["payPalUrl"] = options.PaypalUrl;
             
             File.WriteAllText(options.RepositoryFile, newRepositoryContents.ToString());
