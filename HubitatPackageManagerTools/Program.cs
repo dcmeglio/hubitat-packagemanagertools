@@ -28,6 +28,7 @@ namespace HubitatPackageManagerTools
                 ManifestModifyOptions,
                 ManifestRemoveAppOptions,
                 ManifestRemoveDriverOptions,
+                ManifestConvertOptions,
                 RepositoryAddPackageOptions,
                 RepositoryCreateOptions,
                 RepositoryModifyOptions,
@@ -50,7 +51,8 @@ namespace HubitatPackageManagerTools
                         (ManifestRemoveAppOptions opts) => new ManifestRemoveAppExecutor().Execute(opts),
                         (ManifestRemoveDriverOptions opts) => new ManifestRemoveDriverExecutor().Execute(opts),
                         (ManifestModifyAppOptions opts) => new ManifestModifyAppExecutor().Execute(opts),
-                        (ManifestModifyDriverOptions opts) => new ManifestModifyDriverExecutor().Execute(opts)
+                        (ManifestModifyDriverOptions opts) => new ManifestModifyDriverExecutor().Execute(opts),
+                        (ManifestConvertOptions opts) => new ManifestConvertExecutor().Execute(opts)
                     , errs =>
                     {
                         var helpText = HelpText.AutoBuild(result, h =>
