@@ -22,7 +22,10 @@ namespace HubitatPackageManagerTools.Executors
             }
             SetNonNullPropertyIfSpecified(newManifestContents, "licenseFile", options.License);
             SetNonNullPropertyIfSpecified(newManifestContents, "version", options.Version);
-            
+
+            SetNonNullPropertyIfSpecified(newManifestContents, "documentationLink", options.DocumentationLink);
+            SetNonNullPropertyIfSpecified(newManifestContents, "communityLink", options.CommunityLink);
+
             if (!string.IsNullOrEmpty(options.DateReleased))
                 newManifestContents["dateReleased"] = options.DateReleased;
             else

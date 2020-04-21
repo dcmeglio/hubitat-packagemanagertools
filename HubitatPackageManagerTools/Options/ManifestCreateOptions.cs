@@ -19,6 +19,10 @@ namespace HubitatPackageManagerTools.Options
         public string License { get; set; }
         [Option(HelpText = "The release date of the package in YYYY-MM-DD format. If not specified today's date is used.")]
         public string DateReleased { get; set; }
+        [Option(HelpText = "The URL of help documentation.")]
+        public string DocumentationLink { get; set; }
+        [Option(HelpText = "The URL of the community forum thread.")]
+        public string CommunityLink { get; set; }
 
         [Usage(ApplicationAlias = "hpm")]
         public static IEnumerable<Example> Examples

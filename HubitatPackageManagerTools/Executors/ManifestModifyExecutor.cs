@@ -19,6 +19,8 @@ namespace HubitatPackageManagerTools.Executors
             SetNullableProperty(manifestContents, "minimumHEVersion", options.HEVersion);
             SetNullableProperty(manifestContents, "licenseFile", options.License);
             SetNullableProperty(manifestContents, "releaseNotes", options.ReleaseNotes);
+            SetNullableProperty(manifestContents, "documentationLink", options.DocumentationLink);
+            SetNullableProperty(manifestContents, "communityLink", options.CommunityLink);
 
             if (!string.IsNullOrEmpty(options.DateReleased))
                 manifestContents["dateReleased"] = options.DateReleased;
