@@ -9,8 +9,8 @@ namespace HubitatPackageManagerTools.Executors
 {
     internal class ManifestExecutorBase : ExecutorBase
     {
-        protected static Regex nameMatcher = new Regex("definition\\s*?\\(.*?name:\\s*\"([^\"]*)\"", RegexOptions.Compiled | RegexOptions.Multiline | RegexOptions.Singleline);
-        protected static Regex namespaceMatcher = new Regex("definition\\s*?\\(.*?namespace:\\s*\"([^\"]*)\"", RegexOptions.Compiled | RegexOptions.Multiline | RegexOptions.Singleline);
+        protected static Regex nameMatcher = new Regex(@"definition\s*?\(.*?name:\s*(?:(?:""([^""]*)"")|(?:'([^']*)'))", RegexOptions.Compiled | RegexOptions.Multiline | RegexOptions.Singleline);
+        protected static Regex namespaceMatcher = new Regex(@"definition\s*?\(.*?namespace:\s*(?:(?:""([^""]*)"")|(?:'([^']*)'))", RegexOptions.Compiled | RegexOptions.Multiline | RegexOptions.Singleline);
         protected JObject OpenExistingManifest(ManifestOptionsBase options)
         {
             using var file = File.OpenText(options.ManifestFile);
