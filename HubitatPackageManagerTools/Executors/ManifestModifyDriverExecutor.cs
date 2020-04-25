@@ -48,6 +48,9 @@ namespace HubitatPackageManagerTools.Executors
                     SetNonNullPropertyIfSpecified(driver, "namespace", @namespace);
                     SetNonNullPropertyIfSpecified(driver, "location", options.Location);
                 }
+                var alternateNames = BuildAlternateNames(options.AlternateNames);
+                if (alternateNames != null)
+                    driver["alternateNames"] = alternateNames;
             }
             else
                 throw new ApplicationException($"The driver was not found in the manifest.");

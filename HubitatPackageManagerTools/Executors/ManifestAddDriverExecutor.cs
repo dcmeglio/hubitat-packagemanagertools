@@ -30,7 +30,10 @@ namespace HubitatPackageManagerTools.Executors
                 required = options.Required ?? false
             });
             SetNonNullPropertyIfSpecified(driver, "version", options.Version);
- 
+            var alternateNames = BuildAlternateNames(options.AlternateNames);
+            if (alternateNames != null)
+                driver.Add("alternateNames", alternateNames);
+
             drivers.Add(driver);
 
             SaveManifest(options, manifestContents);

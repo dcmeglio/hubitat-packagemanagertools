@@ -17,6 +17,8 @@ namespace HubitatPackageManagerTools.Options
         public string Version { get; set; }
         [Option(HelpText = "Whether or not the driver is required.", Group = "modify")]
         public bool? Required { get; set; }
+        [Option(HelpText = "A list of alternate names for a driver in the format namespace:name", Group = "modify")]
+        public IEnumerable<string> AlternateNames { get; set; }
 
         [Usage(ApplicationAlias = "hpm")]
         public static IEnumerable<Example> Examples

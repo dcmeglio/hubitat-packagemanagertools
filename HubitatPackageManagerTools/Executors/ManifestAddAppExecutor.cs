@@ -1,6 +1,7 @@
 ﻿using HubitatPackageManagerTools.Options;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Linq;
 
 namespace HubitatPackageManagerTools.Executors
 {
@@ -32,6 +33,9 @@ namespace HubitatPackageManagerTools.Executors
                 oauth = options.Oauth ?? false
             });
             SetNonNullPropertyIfSpecified(app, "version", options.Version);
+            var alternateNames = BuildAlternateNames(options.AlternateNames);
+            if (alternateNames != null)
+                app.Add("alternateNames", alternateNames);
 
             apps.Add(app);
 

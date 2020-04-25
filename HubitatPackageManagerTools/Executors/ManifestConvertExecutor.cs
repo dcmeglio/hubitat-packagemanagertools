@@ -25,6 +25,9 @@ namespace HubitatPackageManagerTools.Executors
 				["drivers"] = new JArray()
 			};
 
+			if (!string.IsNullOrEmpty(stFile["docUrl"]?.ToString()))
+				newManifestContents["documentationLink"] = stFile["docUrl"];
+
 			var stParentApp = stFile["smartApps"]["parent"];
 			var parentApp = JObject.FromObject(new
 			{

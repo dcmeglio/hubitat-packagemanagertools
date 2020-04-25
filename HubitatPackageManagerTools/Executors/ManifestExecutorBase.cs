@@ -1,7 +1,9 @@
 ﻿using HubitatPackageManagerTools.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 
@@ -43,6 +45,28 @@ namespace HubitatPackageManagerTools.Executors
             if (namespaceMatches?.Groups.Count > 1)
                 @namespace = namespaceMatches.Groups[1].Value;
             return (name, @namespace);
+        }
+
+        protected JArray BuildAlternateNames(IEnumerable<string> alternateNames)
+        {
+            if (alternateNames?.Any() == true)
+            {
+                var jsonAlternateNames = new JArray();
+                foreach (var altName in alternateNames)
+                {
+                    string[] kvp = altName.Split(':');
+                    if (kvp.Length == 2)
+                    {
+                        jsonAlternateNames.Add(JObject.FromObject(new
+                        {
+                            @namespace = kvp[0],
+                            name = kvp[1]
+                        }));
+                    }
+                }
+                return jsonAlternateNames;
+            }
+            return null;
         }
     }
 }

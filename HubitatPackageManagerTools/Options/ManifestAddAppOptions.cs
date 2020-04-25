@@ -16,6 +16,9 @@ namespace HubitatPackageManagerTools.Options
         [Option(HelpText = "Whether or not the app uses OAuth.")]
         public bool? Oauth { get; set; }
 
+        [Option(HelpText = "A list of alternate names for an app in the format namespace:name")]
+        public IEnumerable<string> AlternateNames { get; set; }
+
         [Usage(ApplicationAlias = "hpm")]
         public static IEnumerable<Example> Examples
         {
