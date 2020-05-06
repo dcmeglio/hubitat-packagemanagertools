@@ -13,6 +13,10 @@ namespace HubitatPackageManagerTools.Options
         public string Id { get; set; }
         [Option(HelpText = "The URL of the driver's Groovy file.", Group = "modify")]
         public string Location { get; set; }
+        [Option(HelpText = "The URL of the driver's beta Groovy file.")]
+        public string BetaLocation { get; set; }
+        [Option(HelpText = "The beta version of the driver.")]
+        public string BetaVersion { get; set; }
         [Option(HelpText = "The version of the driver.", Group = "modify")]
         public string Version { get; set; }
         [Option(HelpText = "Whether or not the driver is required.", Group = "modify")]

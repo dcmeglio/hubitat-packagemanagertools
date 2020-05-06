@@ -33,6 +33,8 @@ namespace HubitatPackageManagerTools.Executors
                 oauth = options.Oauth ?? false
             });
             SetNonNullPropertyIfSpecified(app, "version", options.Version);
+            SetNonNullPropertyIfSpecified(app, "betaVersion", options.BetaVersion);
+            SetNonNullPropertyIfSpecified(app, "betaLocation", options.BetaLocation);
             var alternateNames = BuildAlternateNames(options.AlternateNames);
             if (alternateNames != null)
                 app.Add("alternateNames", alternateNames);

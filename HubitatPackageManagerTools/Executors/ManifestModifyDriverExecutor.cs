@@ -24,6 +24,8 @@ namespace HubitatPackageManagerTools.Executors
             if (driver != null)
             {
                 SetNullableProperty(driver, "version", options.Version);
+                SetNullableProperty(driver, "betaVersion", options.BetaVersion);
+                SetNullableProperty(driver, "betaLocation", options.BetaLocation);
 
                 if (options.Required == true)
                     driver["required"] = true;

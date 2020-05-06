@@ -24,6 +24,8 @@ namespace HubitatPackageManagerTools.Executors
             if (app != null)
             {
                 SetNullableProperty(app, "version", options.Version);
+                SetNullableProperty(app, "betaVersion", options.BetaVersion);
+                SetNullableProperty(app, "betaLocation", options.BetaLocation);
 
                 if (options.Required == true)
                     app["required"] = true;
