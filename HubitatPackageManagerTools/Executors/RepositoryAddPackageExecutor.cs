@@ -29,7 +29,11 @@ namespace HubitatPackageManagerTools.Executors
                 name = name,
                 category = options.Category,
                 location = options.Manifest,
-                description = options.Description
+                description = options.Description,
+                zwave = options.ZWave ?? false,
+                zigbee = options.Zigbee ?? false,
+                lan = options.LAN ?? false,
+                cloud = options.Cloud ?? false
             }));
 
             SaveRepository(options, repositoryContents);

@@ -32,6 +32,26 @@ namespace HubitatPackageManagerTools.Executors
                         throw new ApplicationException($"Manifest file {options.Manifest} either does not exist or is not valid.");
                 }
                 SetNonNullPropertyIfSpecified(package, "description", options.Description);
+
+                if (options.ZWave == true)
+                    package["zwave"] = true;
+                else if (options.ZWave == false)
+                    package["zwave"] = false;
+
+                if (options.Zigbee == true)
+                    package["zigbee"] = true;
+                else if (options.Zigbee == false)
+                    package["zigbee"] = false;
+
+                if (options.LAN == true)
+                    package["lan"] = true;
+                else if (options.LAN == false)
+                    package["lan"] = false;
+
+                if (options.Cloud == true)
+                    package["cloud"] = true;
+                else if (options.Cloud == false)
+                    package["cloud"] = false;
             }
             else
                 throw new ApplicationException($"The package {options.Manifest} was not found in the repository.");
