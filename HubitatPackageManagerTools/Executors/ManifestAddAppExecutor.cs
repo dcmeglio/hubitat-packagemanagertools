@@ -30,7 +30,8 @@ namespace HubitatPackageManagerTools.Executors
                 @namespace = @namespace,
                 location = options.Location,
                 required = options.Required ?? false,
-                oauth = options.Oauth ?? false
+                oauth = options.Oauth ?? false,
+                primary = options.Primary ?? false
             });
             SetNonNullPropertyIfSpecified(app, "version", options.Version);
             SetNonNullPropertyIfSpecified(app, "betaVersion", options.BetaVersion);

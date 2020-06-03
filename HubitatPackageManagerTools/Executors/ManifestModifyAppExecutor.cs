@@ -37,6 +37,11 @@ namespace HubitatPackageManagerTools.Executors
                 else if (options.Oauth == false)
                     app["oauth"] = false;
 
+                if (options.Primary == true)
+                    app["primary"] = true;
+                else if (options.Primary == false)
+                    app["primary"] = false;
+
                 if (!string.IsNullOrEmpty(options.Location))
                 {
                     var groovyFile = DownloadGroovyFile(options.Location);
