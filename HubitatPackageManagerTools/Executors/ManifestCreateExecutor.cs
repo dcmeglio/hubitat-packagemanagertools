@@ -11,8 +11,7 @@ namespace HubitatPackageManagerTools.Executors
             var newManifestContents = new JObject
             {
                 ["packageName"] = options.Name,
-                ["author"] = options.Author,
-                ["packageId"] = Guid.NewGuid().ToString()
+                ["author"] = options.Author
             };
             SetNonNullPropertyIfSpecified(newManifestContents, "version", options.Version);
             SetNonNullPropertyIfSpecified(newManifestContents, "minimumHEVersion", options.HEVersion ?? "0.0");

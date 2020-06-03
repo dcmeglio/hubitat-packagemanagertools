@@ -1,6 +1,7 @@
 ﻿using HubitatPackageManagerTools.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 using System.IO;
 
 namespace HubitatPackageManagerTools.Executors
@@ -10,7 +11,14 @@ namespace HubitatPackageManagerTools.Executors
         protected JObject OpenExistingRepository(RepositoryOptionsBase options)
         {
             using var file = File.OpenText(options.RepositoryFile);
-            return (JObject)JToken.ReadFrom(new JsonTextReader(file));
+            var fileContents = (JObject)JToken.ReadFrom(new JsonTextReader(file));
+            // Check if all packages have an ID
+            foreach (var package in fileContents["packages"])
+            {
+                if (package["id"] == null)
+                    package["id"] = Guid.NewGuid().ToString();
+            }
+            return fileContents;
         }
 
         protected void SaveRepository(RepositoryOptionsBase options, JToken contents)

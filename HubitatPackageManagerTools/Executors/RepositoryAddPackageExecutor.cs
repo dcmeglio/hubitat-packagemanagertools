@@ -26,6 +26,7 @@ namespace HubitatPackageManagerTools.Executors
 
             packages.Add(JObject.FromObject(new
             {
+                id = Guid.NewGuid().ToString(),
                 name = name,
                 category = options.Category,
                 location = options.Manifest,
