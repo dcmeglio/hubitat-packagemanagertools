@@ -1,6 +1,7 @@
 ﻿using HubitatPackageManagerTools.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,7 +16,11 @@ namespace HubitatPackageManagerTools.Executors
         protected JObject OpenExistingManifest(ManifestOptionsBase options)
         {
             using var file = File.OpenText(options.ManifestFile);
-            return (JObject)JToken.ReadFrom(new JsonTextReader(file));
+            var fileContents = (JObject)JToken.ReadFrom(new JsonTextReader(file));
+            if (fileContents["packageId"] == null)
+                fileContents["packageId"] = Guid.NewGuid().ToString();
+
+            return fileContents;
         }
         protected void SaveManifest(ManifestOptionsBase options, JToken contents)
         {
