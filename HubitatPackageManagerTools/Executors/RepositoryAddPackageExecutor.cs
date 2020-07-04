@@ -1,12 +1,13 @@
 ﻿using HubitatPackageManagerTools.Options;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Linq;
 
 namespace HubitatPackageManagerTools.Executors
 {
     internal class RepositoryAddPackageExecutor : RepositoryExecutorBase
     {
-        public int Execute(RepositoryAddPackageOptions options)
+        public int Execute(RepositoryAddPackageOptions options, Settings settings)
         {
             JObject repositoryContents = OpenExistingRepository(options);
             JArray packages = EnsureArrayExists(repositoryContents, "packages");
@@ -24,19 +25,24 @@ namespace HubitatPackageManagerTools.Executors
             if (name == null)
                 throw new ApplicationException("Unable to determine package name from the manifest.");
 
-            packages.Add(JObject.FromObject(new
+            if (!settings.ValidateCategory(options.Category))
+                throw new ApplicationException($"Invalid category specified, {options.Category}");
+
+            var newPkg = JObject.FromObject(new
             {
                 id = Guid.NewGuid().ToString(),
                 name = name,
                 category = options.Category,
                 location = options.Manifest,
                 description = options.Description,
-                zwave = options.ZWave ?? false,
-                zigbee = options.Zigbee ?? false,
-                lan = options.LAN ?? false,
-                cloud = options.Cloud ?? false
-            }));
-
+            });
+            if (options.Tags?.Any() == true)
+            {
+                if (!settings.ValidateTags(options.Tags))
+                    throw new ApplicationException("An invalid tag was specified.");
+                newPkg["tags"] = new JArray(options.Tags);
+            }
+            packages.Add(newPkg);
             SaveRepository(options, repositoryContents);
             return 0;
         }

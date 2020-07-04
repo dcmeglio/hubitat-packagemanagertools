@@ -6,7 +6,7 @@ namespace HubitatPackageManagerTools.Executors
 {
     internal class ManifestCreateExecutor : ManifestExecutorBase
     {
-        public int Execute(ManifestCreateOptions options)
+        public int Execute(ManifestCreateOptions options, Settings settings)
         {
             var newManifestContents = new JObject
             {

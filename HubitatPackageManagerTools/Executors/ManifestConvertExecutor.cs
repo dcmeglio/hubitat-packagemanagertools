@@ -10,7 +10,7 @@ namespace HubitatPackageManagerTools.Executors
 {
     internal class ManifestConvertExecutor : ManifestExecutorBase
     {
-        public int Execute(ManifestConvertOptions options)
+        public int Execute(ManifestConvertOptions options, Settings settings)
         {
             using var file = File.OpenText(options.SmartThingsFile);
             var stFile = (JObject)JToken.ReadFrom(new JsonTextReader(file));

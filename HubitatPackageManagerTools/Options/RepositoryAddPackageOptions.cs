@@ -15,14 +15,9 @@ namespace HubitatPackageManagerTools.Options
         public string Category { get; set; }
         [Option(HelpText = "The description of the package.", Required = true)]
         public string Description { get; set; }
-        [Option(HelpText = "Whether or not this package supports Z-Wave devices.")]
-        public bool? ZWave { get; set; }
-        [Option(HelpText = "Whether or not this package supports Zigbee devices.")]
-        public bool? Zigbee { get; set; }
-        [Option(HelpText = "Whether or not this package requires LAN connectivity.")]
-        public bool? LAN { get; set; }
-        [Option(HelpText = "Whether or not this package requires cloud/internet connectivity.")]
-        public bool? Cloud { get; set; }
+        [Option(HelpText = "A list of tags for the package.")]
+        public IEnumerable<string> Tags { get; set; }
+
         [Usage(ApplicationAlias = "hpm")]
         public static IEnumerable<Example> Examples
         {

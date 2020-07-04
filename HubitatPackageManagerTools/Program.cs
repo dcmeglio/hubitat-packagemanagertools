@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Net;
 using CommandLine;
 using CommandLine.Text;
 using HubitatPackageManagerTools.Executors;
 using HubitatPackageManagerTools.Options;
+using Newtonsoft.Json.Linq;
 
 namespace HubitatPackageManagerTools
 {
     class Program
     {
+        private const string settingsJson = "https://raw.githubusercontent.com/dcmeglio/hubitat-packagerepositories/master/settings.json";
         static int Main(string[] args)
         {
             var parser = new Parser(with =>
@@ -37,22 +40,26 @@ namespace HubitatPackageManagerTools
             >(args);
             try
             {
+                WebClient wc = new WebClient();
+                var settingsFileContents = wc.DownloadString(settingsJson);
+                Settings settings = new Settings(settingsFileContents);
+                
                 return result
                     .MapResult(
-                        (RepositoryCreateOptions opts) => new RepositoryCreateExecutor().Execute(opts),
-                        (RepositoryModifyOptions opts) => new RepositoryModifyExecutor().Execute(opts),
-                        (RepositoryAddPackageOptions opts) => new RepositoryAddPackageExecutor().Execute(opts),
-                        (RepositoryRemovePackageOptions opts) => new RepositoryRemovePackageExecutor().Execute(opts),
-                        (RepositoryModifyPackageOptions opts) => new RepositoryModifyPackageExecutor().Execute(opts),
-                        (ManifestCreateOptions opts) => new ManifestCreateExecutor().Execute(opts),
-                        (ManifestModifyOptions opts) => new ManifestModifyExecutor().Execute(opts),
-                        (ManifestAddAppOptions opts) => new ManifestAddAppExecutor().Execute(opts),
-                        (ManifestAddDriverOptions opts) => new ManifestAddDriverExecutor().Execute(opts),
-                        (ManifestRemoveAppOptions opts) => new ManifestRemoveAppExecutor().Execute(opts),
-                        (ManifestRemoveDriverOptions opts) => new ManifestRemoveDriverExecutor().Execute(opts),
-                        (ManifestModifyAppOptions opts) => new ManifestModifyAppExecutor().Execute(opts),
-                        (ManifestModifyDriverOptions opts) => new ManifestModifyDriverExecutor().Execute(opts),
-                        (ManifestConvertOptions opts) => new ManifestConvertExecutor().Execute(opts)
+                        (RepositoryCreateOptions opts) => new RepositoryCreateExecutor().Execute(opts, settings),
+                        (RepositoryModifyOptions opts) => new RepositoryModifyExecutor().Execute(opts, settings),
+                        (RepositoryAddPackageOptions opts) => new RepositoryAddPackageExecutor().Execute(opts, settings),
+                        (RepositoryRemovePackageOptions opts) => new RepositoryRemovePackageExecutor().Execute(opts, settings),
+                        (RepositoryModifyPackageOptions opts) => new RepositoryModifyPackageExecutor().Execute(opts, settings),
+                        (ManifestCreateOptions opts) => new ManifestCreateExecutor().Execute(opts, settings),
+                        (ManifestModifyOptions opts) => new ManifestModifyExecutor().Execute(opts, settings),
+                        (ManifestAddAppOptions opts) => new ManifestAddAppExecutor().Execute(opts, settings),
+                        (ManifestAddDriverOptions opts) => new ManifestAddDriverExecutor().Execute(opts, settings),
+                        (ManifestRemoveAppOptions opts) => new ManifestRemoveAppExecutor().Execute(opts, settings),
+                        (ManifestRemoveDriverOptions opts) => new ManifestRemoveDriverExecutor().Execute(opts, settings),
+                        (ManifestModifyAppOptions opts) => new ManifestModifyAppExecutor().Execute(opts, settings),
+                        (ManifestModifyDriverOptions opts) => new ManifestModifyDriverExecutor().Execute(opts, settings),
+                        (ManifestConvertOptions opts) => new ManifestConvertExecutor().Execute(opts, settings)
                     , errs =>
                     {
                         var helpText = HelpText.AutoBuild(result, h =>

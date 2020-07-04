@@ -7,7 +7,7 @@ namespace HubitatPackageManagerTools.Executors
 {
     internal class ManifestRemoveDriverExecutor : ManifestExecutorBase
     {
-        public int Execute(ManifestRemoveDriverOptions options)
+        public int Execute(ManifestRemoveDriverOptions options, Settings settings)
         {
             JObject manifestContents = OpenExistingManifest(options);
 

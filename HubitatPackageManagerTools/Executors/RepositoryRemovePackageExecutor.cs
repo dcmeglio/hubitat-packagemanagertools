@@ -7,7 +7,7 @@ namespace HubitatPackageManagerTools.Executors
 {
     internal class RepositoryRemovePackageExecutor : RepositoryExecutorBase
     {
-        internal int Execute(RepositoryRemovePackageOptions options)
+        internal int Execute(RepositoryRemovePackageOptions options, Settings settings)
         {
             JObject repositoryContents = OpenExistingRepository(options);
 
@@ -15,7 +15,11 @@ namespace HubitatPackageManagerTools.Executors
             if (packages == null)
                 throw new ApplicationException("Repository is missing a packages element.");
 
-            var package = packages.FirstOrDefault(p => p["location"]?.ToString() == options.Manifest);
+            JToken package;
+            if (!string.IsNullOrWhiteSpace(options.Manifest))
+                package = packages.FirstOrDefault(p => p["location"]?.ToString() == options.Manifest);
+            else
+                package = packages.FirstOrDefault(p => p["id"]?.ToString() == options.Id);
 
             if (package != null)
                 packages.Remove(package);

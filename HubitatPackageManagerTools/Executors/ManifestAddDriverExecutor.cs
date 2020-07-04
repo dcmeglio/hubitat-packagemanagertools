@@ -6,7 +6,7 @@ namespace HubitatPackageManagerTools.Executors
 {
     internal class ManifestAddDriverExecutor : ManifestExecutorBase
     {
-        public int Execute(ManifestAddDriverOptions options)
+        public int Execute(ManifestAddDriverOptions options, Settings settings)
         {
             JObject manifestContents = OpenExistingManifest(options);
             JArray drivers = EnsureArrayExists(manifestContents, "drivers");

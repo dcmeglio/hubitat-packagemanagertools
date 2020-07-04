@@ -7,8 +7,10 @@ namespace HubitatPackageManagerTools.Options
     [Verb("repository-remove-package", HelpText = "Remove a package in a repository.")]
     internal class RepositoryRemovePackageOptions : RepositoryOptionsBase
     {
-        [Option(HelpText = "The URL of the package manifest JSON.", Required = true)]
+        [Option(SetName = "matcher", HelpText = "The URL of the package manifest JSON.")]
         public string Manifest { get; set; }
+        [Option(SetName = "matcher", HelpText = "The ID of the package.")]
+        public string Id { get; set; }
 
         [Usage(ApplicationAlias = "hpm")]
         public static IEnumerable<Example> Examples

@@ -5,7 +5,7 @@ namespace HubitatPackageManagerTools.Executors
 {
     internal class RepositoryCreateExecutor : RepositoryExecutorBase
     {
-        public int Execute(RepositoryCreateOptions options)
+        public int Execute(RepositoryCreateOptions options, Settings settings)
         {
             var newRepositoryContents = new JObject
             {

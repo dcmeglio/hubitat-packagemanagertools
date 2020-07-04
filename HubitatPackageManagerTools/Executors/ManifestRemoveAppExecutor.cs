@@ -7,7 +7,7 @@ namespace HubitatPackageManagerTools.Executors
 {
     internal class ManifestRemoveAppExecutor : ManifestExecutorBase
     {
-        public int Execute(ManifestRemoveAppOptions options)
+        public int Execute(ManifestRemoveAppOptions options, Settings settings)
         {
             JObject manifestContents = OpenExistingManifest(options);
 

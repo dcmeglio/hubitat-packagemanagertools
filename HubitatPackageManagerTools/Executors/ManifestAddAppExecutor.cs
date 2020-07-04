@@ -7,7 +7,7 @@ namespace HubitatPackageManagerTools.Executors
 {
     internal class ManifestAddAppExecutor : ManifestExecutorBase
     {
-        public int Execute(ManifestAddAppOptions options)
+        public int Execute(ManifestAddAppOptions options, Settings settings)
         {
             JObject manifestContents = OpenExistingManifest(options);
 

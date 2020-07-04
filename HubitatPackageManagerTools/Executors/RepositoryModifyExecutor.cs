@@ -4,7 +4,7 @@ namespace HubitatPackageManagerTools.Executors
 {
     internal class RepositoryModifyExecutor : RepositoryExecutorBase
     {
-        public int Execute(RepositoryModifyOptions options)
+        public int Execute(RepositoryModifyOptions options, Settings settings)
         {
             var repositoryContents = OpenExistingRepository(options);
 
