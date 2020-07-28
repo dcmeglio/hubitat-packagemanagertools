@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 namespace HubitatPackageManagerTools.Options
 {
-    [Verb("manifest-remove-app", HelpText = "Remove an app in a manifest.")]
-    internal class ManifestRemoveAppOptions : ManifestOptionsBase
+    [Verb("manifest-remove-file", HelpText = "Remove a file manager file in a manifest.")]
+    internal class ManifestRemoveFileOptions : ManifestOptionsBase
     {
-        [Option(SetName = "matcher", HelpText = "The name of the app.")]
+        [Option(SetName = "matcher", HelpText = "The name of the file.")]
         public string Name { get; set; }
-        [Option(SetName = "matcher", HelpText = "The id of the app.")]
+        [Option(SetName = "matcher", HelpText = "The id of the file.")]
         public string Id { get; set; }
 
         [Usage(ApplicationAlias = "hpm")]
@@ -17,12 +17,12 @@ namespace HubitatPackageManagerTools.Options
         {
             get
             {
-                yield return new Example("Remove an app by name", new[] { UnParserSettings.WithUseEqualTokenOnly() }, new ManifestRemoveAppOptions
+                yield return new Example("Remove a file by name", new[] { UnParserSettings.WithUseEqualTokenOnly() }, new ManifestRemoveFileOptions
                 {
                     ManifestFile = "packageManifest.json",
-                    Name = "My App"
+                    Name = "myscript.js"
                 });
-                yield return new Example("Remove an app by id", new[] { UnParserSettings.WithUseEqualTokenOnly() }, new ManifestRemoveAppOptions
+                yield return new Example("Remove a file by id", new[] { UnParserSettings.WithUseEqualTokenOnly() }, new ManifestRemoveFileOptions
                 {
                     ManifestFile = "packageManifest.json",
                     Id = "da254635-819c-4a9e-949c-2b1812d2c310"

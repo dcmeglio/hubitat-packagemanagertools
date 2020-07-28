@@ -22,45 +22,48 @@ namespace HubitatPackageManagerTools
                 with.IgnoreUnknownArguments = false;
                 with.HelpWriter = null;
             });
-            var result = parser.ParseArguments<
-                ManifestAddAppOptions,
-                ManifestAddDriverOptions,
-                ManifestCreateOptions,
-                ManifestModifyAppOptions,
-                ManifestModifyDriverOptions,
-                ManifestModifyOptions,
-                ManifestRemoveAppOptions,
-                ManifestRemoveDriverOptions,
-                ManifestConvertOptions,
-                RepositoryAddPackageOptions,
-                RepositoryCreateOptions,
-                RepositoryModifyOptions,
-                RepositoryModifyPackageOptions,
-                RepositoryRemovePackageOptions
-            >(args);
+            var result = parser.ParseArguments(args,
+                typeof(ManifestAddAppOptions),
+                typeof(ManifestAddDriverOptions),
+                typeof(ManifestAddFileOptions),
+                typeof(ManifestCreateOptions),
+                typeof(ManifestModifyAppOptions),
+                typeof(ManifestModifyDriverOptions),
+                typeof(ManifestModifyFileOptions),
+                typeof(ManifestModifyOptions),
+                typeof(ManifestRemoveAppOptions),
+                typeof(ManifestRemoveDriverOptions),
+                typeof(ManifestRemoveFileOptions),
+                typeof(ManifestConvertOptions),
+                typeof(RepositoryAddPackageOptions),
+                typeof(RepositoryCreateOptions),
+                typeof(RepositoryModifyOptions),
+                typeof(RepositoryModifyPackageOptions),
+                typeof(RepositoryRemovePackageOptions));
             try
             {
                 WebClient wc = new WebClient();
                 var settingsFileContents = wc.DownloadString(settingsJson);
                 Settings settings = new Settings(settingsFileContents);
-                
-                return result
-                    .MapResult(
-                        (RepositoryCreateOptions opts) => new RepositoryCreateExecutor().Execute(opts, settings),
-                        (RepositoryModifyOptions opts) => new RepositoryModifyExecutor().Execute(opts, settings),
-                        (RepositoryAddPackageOptions opts) => new RepositoryAddPackageExecutor().Execute(opts, settings),
-                        (RepositoryRemovePackageOptions opts) => new RepositoryRemovePackageExecutor().Execute(opts, settings),
-                        (RepositoryModifyPackageOptions opts) => new RepositoryModifyPackageExecutor().Execute(opts, settings),
-                        (ManifestCreateOptions opts) => new ManifestCreateExecutor().Execute(opts, settings),
-                        (ManifestModifyOptions opts) => new ManifestModifyExecutor().Execute(opts, settings),
-                        (ManifestAddAppOptions opts) => new ManifestAddAppExecutor().Execute(opts, settings),
-                        (ManifestAddDriverOptions opts) => new ManifestAddDriverExecutor().Execute(opts, settings),
-                        (ManifestRemoveAppOptions opts) => new ManifestRemoveAppExecutor().Execute(opts, settings),
-                        (ManifestRemoveDriverOptions opts) => new ManifestRemoveDriverExecutor().Execute(opts, settings),
-                        (ManifestModifyAppOptions opts) => new ManifestModifyAppExecutor().Execute(opts, settings),
-                        (ManifestModifyDriverOptions opts) => new ManifestModifyDriverExecutor().Execute(opts, settings),
-                        (ManifestConvertOptions opts) => new ManifestConvertExecutor().Execute(opts, settings)
-                    , errs =>
+                bool failed = false;
+                result.WithParsed((RepositoryCreateOptions opts) => new RepositoryCreateExecutor().Execute(opts, settings))
+                    .WithParsed((RepositoryCreateOptions opts) => new RepositoryCreateExecutor().Execute(opts, settings))
+                    .WithParsed((RepositoryModifyOptions opts) => new RepositoryModifyExecutor().Execute(opts, settings))
+                    .WithParsed((RepositoryAddPackageOptions opts) => new RepositoryAddPackageExecutor().Execute(opts, settings))
+                    .WithParsed((RepositoryRemovePackageOptions opts) => new RepositoryRemovePackageExecutor().Execute(opts, settings))
+                    .WithParsed((RepositoryModifyPackageOptions opts) => new RepositoryModifyPackageExecutor().Execute(opts, settings))
+                    .WithParsed((ManifestCreateOptions opts) => new ManifestCreateExecutor().Execute(opts, settings))
+                    .WithParsed((ManifestModifyOptions opts) => new ManifestModifyExecutor().Execute(opts, settings))
+                    .WithParsed((ManifestAddAppOptions opts) => new ManifestAddAppExecutor().Execute(opts, settings))
+                    .WithParsed((ManifestAddDriverOptions opts) => new ManifestAddDriverExecutor().Execute(opts, settings))
+                    .WithParsed((ManifestAddFileOptions opts) => new ManifestAddFileExecutor().Execute(opts, settings))
+                    .WithParsed((ManifestRemoveAppOptions opts) => new ManifestRemoveAppExecutor().Execute(opts, settings))
+                    .WithParsed((ManifestRemoveDriverOptions opts) => new ManifestRemoveDriverExecutor().Execute(opts, settings))
+                    .WithParsed((ManifestRemoveFileOptions opts) => new ManifestRemoveFileExecutor().Execute(opts, settings))
+                    .WithParsed((ManifestModifyAppOptions opts) => new ManifestModifyAppExecutor().Execute(opts, settings))
+                    .WithParsed((ManifestModifyDriverOptions opts) => new ManifestModifyDriverExecutor().Execute(opts, settings))
+                    .WithParsed((ManifestModifyFileOptions opts) => new ManifestModifyFileExecutor().Execute(opts, settings))
+                    .WithNotParsed(errs =>
                     {
                         var helpText = HelpText.AutoBuild(result, h =>
                         {
@@ -71,9 +74,10 @@ namespace HubitatPackageManagerTools
                         },
                         e => e);
                         Console.Error.WriteLine(helpText);
-                        return -1;
-                    }
-                );
+                        failed = true;
+                    });
+                return failed ? -1 : 0;
+                
             }
             catch (Exception e)
             {

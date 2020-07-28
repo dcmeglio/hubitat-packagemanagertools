@@ -34,6 +34,16 @@ namespace HubitatPackageManagerTools.Executors
             }
         }
 
+        protected bool IsFilePlaintext(string contents)
+        {
+            for (var i = 0; i < contents.Length; i++)
+            {
+                if ((int)contents[i] < 32 && contents[i] != '\t' && contents[i] != '\n' && contents[i] != '\r')
+                    return false;
+            }
+            return true;
+        }
+
         protected void SetNullableProperty(JObject json, string property, string value)
         {
             if (value.IsSpecified())
