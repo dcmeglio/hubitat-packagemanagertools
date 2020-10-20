@@ -13,10 +13,13 @@ namespace HubitatPackageManagerTools.Executors
             using var file = File.OpenText(options.RepositoryFile);
             var fileContents = (JObject)JToken.ReadFrom(new JsonTextReader(file));
             // Check if all packages have an ID
-            foreach (var package in fileContents["packages"])
+            if (fileContents["packages"] != null)
             {
-                if (package["id"] == null)
-                    package["id"] = Guid.NewGuid().ToString();
+                foreach (var package in fileContents["packages"])
+                {
+                    if (package["id"] == null)
+                        package["id"] = Guid.NewGuid().ToString();
+                }
             }
             return fileContents;
         }
